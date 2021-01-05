@@ -1,5 +1,7 @@
 <h1>Games#show</h1>
 <p>Find me in app/views/games/show.html.erb</p>
 <% @game.users.each do |user| %>
-  <%= user.email %>
+  <p><%= user.email %></p>
 <% end %>
+<p><%= @game.new_game %></p>
+<% raise %>

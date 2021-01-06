@@ -3,14 +3,11 @@ class Game < ApplicationRecord
   has_many :users, through: :sessions
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   attr_accessor :state
+  attr_accessor :bet
   def new_game(state = [])
-    @test = 'test'
-    count = 1
-    users.each do |user|
-      state << { name: user.email, dice: roll(5) }
-      count += 1
-    end
+    users.each { |user| state << { name: user.email, dice: roll(5) } }
     @state = state
+    @bet = [0, 0]
     return @state
   end
 
@@ -23,7 +20,6 @@ class Game < ApplicationRecord
   def show_all_dice()
     array = []
     state.each { |player| array << player[:dice] }
-    # player = state.find { |key, hash| hash['name'] == "#{user.email}" }
     return array
   end
 
@@ -38,7 +34,6 @@ class Game < ApplicationRecord
         array << mask_array
       end
     end
-    # player = state.find { |key, hash| hash['name'] == "#{user.email}" }
     return array
   end
 
@@ -48,6 +43,15 @@ class Game < ApplicationRecord
   end
 
   def new_round
-    state.each { |player| player[:dice] = roll(:dice.count) }
+    @bet = [0, 0]
+    state.each { |player| player[:dice] = roll(player[:dice].count) }
+  end
+
+  def raise(num, val)
+    if val < 7 && (num > @bet[0] || val > @bet[1])
+      @bet = [num, val]
+    else
+      return 'invalid!'
+    end
   end
 end

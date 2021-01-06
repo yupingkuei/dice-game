@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   has_many :sessions
   has_many :users, through: :sessions
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
-  attr_accessor :state, :bet, :total, :rotation
+  attr_accessor :state, :bet, :total, :rotation, :turn
 
   def new_game(state = [])
     users.each { |user| state << { name: user.email, dice: roll(5) } }
@@ -10,6 +10,7 @@ class Game < ApplicationRecord
     @state = state
     set_rotation
     new_round
+    @turn = 0
     return @state
   end
 
@@ -40,8 +41,9 @@ class Game < ApplicationRecord
   end
 
   def round_loss(user)
-    player = state.find { |player| player[:name] == user.email }
+    player = state.find { |player| player[:name] == user }
     player[:dice].pop
+    new_round
   end
 
   def new_round
@@ -59,24 +61,40 @@ class Game < ApplicationRecord
     end
   end
 
-  def raise(num, val)
+  def raise_bet(num, val)
     if val < 7 && (num > @bet[0] || val > @bet[1])
       @bet = [num, val]
+      next_turn
     else
       return 'invalid!'
     end
   end
 
-  def check()
+  def call_bluff()
     if @total[@bet[1]] >= @bet[0]
-      return 'win'
+      round_loss(current_player)
+      return 'under total, safe'
     else
-      return 'lose'
+      round_loss(previous_player)
+      @turn -= 1
+      return 'over total, bust'
     end
   end
 
   def set_rotation()
     @rotation = []
     @state.each { |player| @rotation << player[:name] }
+  end
+
+  def current_player
+    @rotation[@turn]
+  end
+
+  def previous_player
+    @rotation[@turn - 1]
+  end
+
+  def next_turn
+    @turn < (@rotation.count - 1) ? @turn += 1 : @turn = 0
   end
 end

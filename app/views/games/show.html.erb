@@ -4,4 +4,7 @@
   <p><%= user.email %></p>
 <% end %>
 <p><%= @game.new_game %></p>
-<% raise %>
+<h2><%= current_user.email %></h2>
+<h2><%= @game.show_all_dice %></h2>
+<h2><%= @game.show_your_dice(current_user) %></h2>
+<%# <% raise %> %>

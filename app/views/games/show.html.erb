@@ -8,4 +8,5 @@
 <h2><%= @game.show_all_dice %></h2>
 <h2><%= @game.show_your_dice(current_user) %></h2>
 <h2><%= @game.round_loss(current_user) %></h2>
-<% raise %>
+<h2><%= @game.total %></h2>
+<h2><%= @game.rotation.each {|player| player} %></h2>

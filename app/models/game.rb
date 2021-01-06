@@ -2,12 +2,14 @@ class Game < ApplicationRecord
   has_many :sessions
   has_many :users, through: :sessions
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
-  attr_accessor :state
-  attr_accessor :bet
+  attr_accessor :state, :bet, :total, :rotation
+
   def new_game(state = [])
     users.each { |user| state << { name: user.email, dice: roll(5) } }
+
     @state = state
-    @bet = [0, 0]
+    set_rotation
+    new_round
     return @state
   end
 
@@ -44,7 +46,17 @@ class Game < ApplicationRecord
 
   def new_round
     @bet = [0, 0]
-    state.each { |player| player[:dice] = roll(player[:dice].count) }
+    @total = { 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
+    @state.each { |player| player[:dice] = roll(player[:dice].count) }
+    show_all_dice.each do |player|
+      player.each do |die|
+        if die == 1
+          (2..6).each { |num| @total[num] += 1 }
+        else
+          @total[die] += 1
+        end
+      end
+    end
   end
 
   def raise(num, val)
@@ -53,5 +65,18 @@ class Game < ApplicationRecord
     else
       return 'invalid!'
     end
+  end
+
+  def check()
+    if @total[@bet[1]] >= @bet[0]
+      return 'win'
+    else
+      return 'lose'
+    end
+  end
+
+  def set_rotation()
+    @rotation = []
+    @state.each { |player| @rotation << player[:name] }
   end
 end

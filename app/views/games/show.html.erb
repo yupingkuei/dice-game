@@ -1,12 +1,18 @@
 <h1>Games#show</h1>
-<p>Find me in app/views/games/show.html.erb</p>
-<% @game.users.each do |user| %>
-  <p><%= user.email %></p>
-<% end %>
 <p><%= @game.new_game %></p>
-<h2><%= current_user.email %></h2>
-<h2><%= @game.show_all_dice %></h2>
-<h2><%= @game.show_your_dice(current_user) %></h2>
-<h2><%= @game.round_loss(current_user) %></h2>
+
+<h2>YOU ARE: <%= current_user.email %></h2>
+<h3><%= @game.show_all_dice %></h3>
+<h3><%= @game.show_your_dice(current_user) %></h3>
+<h3><%= @game.total %></h3>
+<h3><%= @game.bet %></h3>
+<h4><%= @game.rotation.each {|player| player} %></h4>
+<h4>CURRENT TURN: <%= @game.current_player %></h4>
+<% if @game.current_player == current_user.email %>
+  <%= 'raise bet / call bluff' %>
+<% end %>
+
+
 <%= link_to 'Back', root_path %>
+
 <% raise %>

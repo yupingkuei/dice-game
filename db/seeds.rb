@@ -8,12 +8,16 @@
 Session.destroy_all
 Game.destroy_all
 User.destroy_all
-player1 = User.create!(email: 'Player1@gmail.com', password: '123456')
-player2 = User.create!(email: 'Player2@gmail.com', password: '123456')
-player3 = User.create!(email: 'Player3@gmail.com', password: '123456')
-player4 = User.create!(email: 'Player4@gmail.com', password: '123456')
+player1 =
+  User.create!(email: 'Player1@gmail.com', password: '123456', name: 'one')
+player2 =
+  User.create!(email: 'Player2@gmail.com', password: '123456', name: 'two')
+player3 =
+  User.create!(email: 'Player3@gmail.com', password: '123456', name: 'three')
+player4 =
+  User.create!(email: 'Player4@gmail.com', password: '123456', name: 'four')
 
-game1 = Game.create(user: player1)
+game1 = Game.create!(owner: player1)
 
 Session.create!(user: player1, game: game1)
 Session.create!(user: player2, game: game1)

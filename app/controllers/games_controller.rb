@@ -1,5 +1,8 @@
 class GamesController < ApplicationController
-  def index; end
+  def index
+    @games = Game.all
+    @new_game = Game.new
+  end
 
   def show
     @game = Game.find(params[:id])
@@ -9,11 +12,22 @@ class GamesController < ApplicationController
 
   def new; end
 
+  def create
+    @game = Game.create(owner: current_user, turn: 0, value: 2, quantity: 0)
+    Session.create(game: @game, user: current_user)
+    redirect_to game_path(@game)
+  end
+
   def edit; end
 
   def update
     @game = Game.find(params[:id])
     # reset
+    if params[:game][:action] == 'join'
+      unless @game.users.include?(current_user)
+        Session.create(game: @game, user: current_user)
+      end
+    end
     if params[:game][:action] == 'reset'
       #
       new_game

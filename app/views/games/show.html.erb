@@ -18,24 +18,11 @@
         <%= image_tag "dice7.png" , width: 100%>
       <% end %>
     <% end %>
-<!--  seigo-->
     <% if  @game.users.fourth%>
       <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 3)].email %></h1>
       <% @game.users[@game.users.index(current_user)- 1].dice.each do |die| %>
         <%= image_tag "dice7.png" , width: 100%>
       <% end %>
-<!--  yuping-->
-  <% end %>
-  <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60%></h2>
-  <h2><%= @total %></h2>
-  <% if current_user.email == @game.users[@game.turn].email %>
-    <h2>enter bet</h2>
-  <%= simple_form_for(@game) do |f| %>
-    <%= f.input :quantity, input_html: { class: 'bet-form' } %>
-    <%= f.input :value, input_html: { class: 'bet-form' }  %>
-    <%= f.hidden_field :action, value: 'raise', remote: true %>
-    <%= f.submit "update"%>
-
     <% end %>
     <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60%></h2>
     <h2><%= @total %></h2>
@@ -44,7 +31,7 @@
     <div class="action">
       <h2>enter bet</h2>
       <%= simple_form_for(@game) do |f| %>
-        <%= f.input :quantity %>
+        <%= f.input :quantity, input_html: { class: 'bet-form' } %>
         <%= f.hidden_field :action, value: 'raise', remote: true %>
         <%= f.submit "2", class: 'dice2', name: "value"%>
         <%= f.submit "3", class: 'dice3', name: "value"%>
@@ -59,12 +46,14 @@
       <% end %>
     </div>
     <%# <% end %> %>
+    <%# --------------------mod actions----------------------------- %>
     <h2>Reset the game</h2>
     <%= simple_form_for(@game) do |f| %>
       <%= f.hidden_field :action, value: 'reset' %>
       <%= f.submit "Reset"%>
     <% end %>
   <% else %>
+    <%# ----------------------awaiting players---------------------------- %>
     <i class="fas fa-spinner fa-spin"></i>
     awaiting players
     <% @game.users.each do |user|%>

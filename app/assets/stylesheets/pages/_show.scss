@@ -4,3 +4,35 @@
   margin: auto;
   text-align: center;
 }
+
+.dice2 {
+  background: url("dice2.png");
+}
+.dice3 {
+  background: url("dice3.png");
+}
+.dice4 {
+  background: url("dice4.png");
+}
+.dice5 {
+  background: url("dice5.png");
+}
+.dice6 {
+  background: url("dice6.png");
+}
+
+.dice2,
+.dice3,
+.dice4,
+.dice5,
+.dice6 {
+  color: transparent;
+  background-size: cover;
+  height: 60px;
+  width: 60px;
+  border: none;
+}
+
+.action {
+  border: 1px solid black;
+}

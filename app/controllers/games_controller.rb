@@ -50,6 +50,7 @@ class GamesController < ApplicationController
         @game.value = params[:value]
         next_turn
       end
+      next_turn
     end
 
     @game.save

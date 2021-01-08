@@ -1,5 +1,5 @@
-<h1>Games#index</h1>
-<p>Find me in app/views/games/index.html.erb</p>
+<h1>Games</h1>
+<p>Join an exsiting game or create a new game</p>
 <% @games.each do |game| %>
   <h2>game <%= game.id %></h2>
   <% game.users.each do |user| %>
@@ -14,8 +14,10 @@
   <% end %>
 <% end %>
 <%#-------------------create-------------------------%>
-<%= simple_form_for(@new_game) do |f| %>
-  <%= f.input :max, label: 'number of players' %>
-  <%= f.submit "New", class: 'btn btn-primary '%>
-<% end %>
-<%= link_to 'Back', root_path %>
+<div class="new_game">
+  <%= simple_form_for(@new_game) do |f| %>
+    <%= f.input :max, label: 'number of players' %>
+    <%= f.submit "New", class: 'btn btn-primary '%>
+  <% end %>
+  <%= link_to 'Back', root_path %>
+</div>

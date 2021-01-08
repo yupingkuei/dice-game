@@ -6,9 +6,11 @@
     <%= user.email %>
   <% end %>
   <p><%= game.max - game.users.count %> more players</p>
-  <%= simple_form_for(game) do |f| %>
-    <%= f.hidden_field :action, value: 'join' %>
-    <%= f.submit "join", class: 'btn btn-primary '%>
+  <% if game.users.count < game.max || game.users.include?(current_user) %>
+    <%= simple_form_for(game) do |f| %>
+      <%= f.hidden_field :action, value: 'join' %>
+      <%= f.submit "join", class: 'btn btn-primary '%>
+    <% end %>
   <% end %>
 <% end %>
 <%#-------------------create-------------------------%>

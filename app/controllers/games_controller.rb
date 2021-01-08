@@ -42,10 +42,18 @@ class GamesController < ApplicationController
         @game.quantity = params[:game][:quantity]
         @game.value = params[:game][:value]
       end
+      next_turn
     end
+
     @game.save
 
     render :show
+  end
+
+  def destroy
+    @game = Game.find(params[:id])
+    @game.destroy
+    redirect_to games_path
   end
 
   private

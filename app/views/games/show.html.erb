@@ -52,7 +52,7 @@
       <h3><%= user.email %></h3>
     <% end %>
     <% if current_user == @game.owner %>
-      <%= link_to "Delete", game_path(@game), class: 'btn btn-primary long-btn', method: :delete, data: { confirm: "end game?" } %>
+      <%= link_to "End Game", game_path(@game), class: 'btn btn-primary long-btn', method: :delete, data: { confirm: "end game?" } %>
     <% end %>
   <% end %>
 </div>

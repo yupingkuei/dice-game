@@ -13,7 +13,14 @@ class GamesController < ApplicationController
   def new; end
 
   def create
-    @game = Game.create(owner: current_user, turn: 0, value: 2, quantity: 0)
+    @game =
+      Game.create(
+        owner: current_user,
+        turn: 0,
+        value: 2,
+        quantity: 0,
+        max: params[:game][:max].to_i
+      )
     Session.create(game: @game, user: current_user)
     redirect_to game_path(@game)
   end
@@ -40,13 +47,21 @@ class GamesController < ApplicationController
     if params[:game][:action] == 'raise'
       if raised?(params[:game][:quantity], params[:game][:value])
         @game.quantity = params[:game][:quantity]
-        @game.value = params[:game][:value]
+        @game.value = params[:value]
+        next_turn
       end
       next_turn
     end
+
     @game.save
 
     render :show
+  end
+
+  def destroy
+    @game = Game.find(params[:id])
+    @game.destroy
+    redirect_to games_path
   end
 
   private

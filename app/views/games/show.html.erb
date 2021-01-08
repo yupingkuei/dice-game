@@ -1,28 +1,30 @@
 <div class="container">
-<h1>Games#show</h1>
-<% if @game.users.count == @game.max %>
-  <h3>current turn: <%= @game.users[@game.turn].email %></h3>
-  <h1><%= current_user.email %></h1>
-  <% @game.users[@game.users.index(current_user)].dice.each do |die| %>
-    <%= image_tag "dice#{die}.png" , width: 100%>
-  <% end %>
-  <% if  @game.users.second%>
-    <h1><%= @game.users[@game.users.index(current_user)- 3].email %></h1>
-    <% @game.users[@game.users.index(current_user)- 3].dice.each do |die| %>
-      <%= image_tag "dice7.png" , width: 100%>
+  <h1>Games#show</h1>
+  <% if @game.users.count == @game.max %>
+    <h3>current turn: <%= @game.users[@game.turn].email %></h3>
+    <h1><%= current_user.email %></h1>
+    <% @game.users[@game.users.index(current_user)].dice.each do |die| %>
+      <%= image_tag "dice#{die}.png" , width: 100%>
     <% end %>
-  <% end %>
-  <% if  @game.users.third%>
-    <h1><%= @game.users[@game.users.index(current_user)- 2].email %></h1>
-    <% @game.users[@game.users.index(current_user)- 2].dice.each do |die| %>
-      <%= image_tag "dice7.png" , width: 100%>
+    <% if  @game.users.second%>
+      <h1><%= @game.users[@game.users.index(current_user) - (@game.users.count - 1)].email %></h1>
+      <% @game.users[@game.users.index(current_user)- 3].dice.each do |die| %>
+        <%= image_tag "dice7.png" , width: 100%>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if  @game.users.fourth%>
-    <h1><%= @game.users[@game.users.index(current_user)- 1].email %></h1>
-    <% @game.users[@game.users.index(current_user)- 1].dice.each do |die| %>
-      <%= image_tag "dice7.png" , width: 100%>
+    <% if  @game.users.third%>
+      <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 2)].email %></h1>
+      <% @game.users[@game.users.index(current_user)- 2].dice.each do |die| %>
+        <%= image_tag "dice7.png" , width: 100%>
+      <% end %>
     <% end %>
+<!--  seigo-->
+    <% if  @game.users.fourth%>
+      <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 3)].email %></h1>
+      <% @game.users[@game.users.index(current_user)- 1].dice.each do |die| %>
+        <%= image_tag "dice7.png" , width: 100%>
+      <% end %>
+<!--  yuping-->
   <% end %>
   <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60%></h2>
   <h2><%= @total %></h2>
@@ -33,23 +35,43 @@
     <%= f.input :value, input_html: { class: 'bet-form' }  %>
     <%= f.hidden_field :action, value: 'raise', remote: true %>
     <%= f.submit "update"%>
+
     <% end %>
-    <h2>call bluff</h2>
+    <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60%></h2>
+    <h2><%= @total %></h2>
+    <%#----------------------------action----------------------------%>
+    <%# <% if current_user.email == @game.users[@game.turn].email %> %>
+    <div class="action">
+      <h2>enter bet</h2>
+      <%= simple_form_for(@game) do |f| %>
+        <%= f.input :quantity %>
+        <%= f.hidden_field :action, value: 'raise', remote: true %>
+        <%= f.submit "2", class: 'dice2', name: "value"%>
+        <%= f.submit "3", class: 'dice3', name: "value"%>
+        <%= f.submit "4", class: 'dice4', name: "value"%>
+        <%= f.submit "5", class: 'dice5', name: "value"%>
+        <%= f.submit "6", class: 'dice6', name: "value"%>
+      <% end %>
+      <h2>call bluff</h2>
+      <%= simple_form_for(@game) do |f| %>
+        <%= f.hidden_field :action, value: 'call', remote: true %>
+        <%= f.submit "Call"%>
+      <% end %>
+    </div>
+    <%# <% end %> %>
+    <h2>Reset the game</h2>
     <%= simple_form_for(@game) do |f| %>
-      <%= f.hidden_field :action, value: 'call', remote: true %>
-      <%= f.submit "Call"%>
+      <%= f.hidden_field :action, value: 'reset' %>
+      <%= f.submit "Reset"%>
+    <% end %>
+  <% else %>
+    <i class="fas fa-spinner fa-spin"></i>
+    awaiting players
+    <% @game.users.each do |user|%>
+      <h3><%= user.email %></h3>
+    <% end %>
+    <% if current_user == @game.owner %>
+      <%= link_to "End Game", game_path(@game), class: 'btn btn-primary long-btn', method: :delete, data: { confirm: "end game?" } %>
     <% end %>
   <% end %>
-  <h2>Reset the game</h2>
-  <%= simple_form_for(@game) do |f| %>
-    <%= f.hidden_field :action, value: 'reset' %>
-    <%= f.submit "Reset"%>
-  <% end %>
-<% else %>
-  <i class="fas fa-spinner fa-spin"></i>
-  awaiting players
-  <% @game.users.each do |user|%>
-    <h3><%= user.email %></h3>
-  <% end %>
-<% end %>
 </div>

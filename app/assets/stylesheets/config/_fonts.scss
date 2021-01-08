@@ -1,9 +1,16 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Text:wght@100;300;900&family=Exo+2:wght@300;400&family=Raleway:wght@400;800&display=swap");
 
 // Define fonts for body and headers
 $body-font: "Work Sans", "Helvetica", "sans-serif";
 $headers-font: "Nunito", "Helvetica", "sans-serif";
+
+//potential headers fonts
+$headers: "Big Shoulders Inline Text", cursive;
+//potential body fonts
+$body1: "Exo 2", sans-serif;
+$body2: "Raleway", sans-serif;
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {

@@ -42,6 +42,7 @@ class GamesController < ApplicationController
         @game.quantity = params[:game][:quantity]
         @game.value = params[:game][:value]
       end
+      next_turn
     end
     @game.save
 

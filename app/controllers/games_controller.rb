@@ -1,5 +1,8 @@
 class GamesController < ApplicationController
-  def index; end
+  def index
+    @games = Game.all
+    @new_game = Game.new
+  end
 
   def show
     @game = Game.find(params[:id])
@@ -8,6 +11,12 @@ class GamesController < ApplicationController
   end
 
   def new; end
+
+  def create
+    @game = Game.new
+    @game.owner = current_user
+    @game.save
+  end
 
   def edit; end
 

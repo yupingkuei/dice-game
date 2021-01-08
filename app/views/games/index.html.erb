@@ -1,3 +1,9 @@
 <h1>Games#index</h1>
 <p>Find me in app/views/games/index.html.erb</p>
+<h2><% @games.each do |game| %>
+    <%= link_to 'game', game_path(game) %>
+  <% end %></h2>
+<%= simple_form_for(@new_game) do |f| %>
+  <%= f.submit "Confirm", class: 'btn btn-primary '%>
+<% end %>
 <%= link_to 'Back', root_path %>

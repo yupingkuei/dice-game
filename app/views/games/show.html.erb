@@ -1,3 +1,4 @@
+<div class="container">
 <h1>Games#show</h1>
 <% if @game.users.count == @game.max %>
   <h3>current turn: <%= @game.users[@game.turn].email %></h3>
@@ -51,3 +52,4 @@
     <h3><%= user.email %></h3>
   <% end %>
 <% end %>
+</div>

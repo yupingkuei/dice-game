@@ -45,6 +45,7 @@
     <%= f.submit "Reset"%>
   <% end %>
 <% else %>
+  <i class="fas fa-spinner fa-spin"></i>
   awaiting players
   <% @game.users.each do |user|%>
     <h3><%= user.email %></h3>

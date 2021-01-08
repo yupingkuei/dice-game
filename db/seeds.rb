@@ -17,7 +17,16 @@ player3 =
 player4 =
   User.create!(email: 'Player4@gmail.com', password: '123456', name: 'four')
 
-game1 = Game.create!(owner: player1)
+game1 =
+  Game.create!(
+    owner: player1,
+    rotation: %w[
+      Player1@gmail.com
+      Player2@gmail.com
+      Player3@gmail.com
+      Player4@gmail.com
+    ]
+  )
 
 Session.create!(user: player1, game: game1)
 Session.create!(user: player2, game: game1)

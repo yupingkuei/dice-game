@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/edit'
   resources :games
   devise_for :users
   root to: 'pages#home'

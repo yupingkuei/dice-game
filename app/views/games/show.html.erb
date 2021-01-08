@@ -22,8 +22,8 @@
 <% if current_user.email == @game.users[@game.turn].email %>
   <h2>enter bet</h2>
   <%= simple_form_for(@game) do |f| %>
-    <%= f.input :quantity %>
-    <%= f.input :value %>
+    <%= f.input :quantity, input_html: { class: 'bet-form' } %>
+    <%= f.input :value, input_html: { class: 'bet-form' }  %>
     <%= f.hidden_field :action, value: 'raise', remote: true %>
     <%= f.submit "update"%>
   <% end %>

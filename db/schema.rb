@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_022917) do
     t.string "rotation", default: [], array: true
     t.integer "quantity", default: 0
     t.integer "value", default: 2
-    t.integer "turn"
+    t.integer "turn", default: 0
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_022917) do
+ActiveRecord::Schema.define(version: 2021_01_08_065917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_022917) do
     t.integer "quantity", default: 0
     t.integer "value", default: 2
     t.integer "turn"
+    t.integer "max", default: 4
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 

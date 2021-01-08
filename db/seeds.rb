@@ -25,7 +25,10 @@ game1 =
       Player2@gmail.com
       Player3@gmail.com
       Player4@gmail.com
-    ]
+    ],
+    turn: 0,
+    value: 2,
+    quantity: 0
   )
 
 Session.create!(user: player1, game: game1)

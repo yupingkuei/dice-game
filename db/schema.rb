@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_050858) do
+ActiveRecord::Schema.define(version: 2021_01_08_022917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 2021_01_06_050858) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.integer "bet", default: [], array: true
+    t.boolean "start"
+    t.string "rotation", default: [], array: true
+    t.integer "quantity", default: 0
+    t.integer "value", default: 2
+    t.integer "turn"
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
@@ -40,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_050858) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.integer "dice", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

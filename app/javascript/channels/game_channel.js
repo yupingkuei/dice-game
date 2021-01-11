@@ -10,8 +10,8 @@ const initGameCable = () => {
       { channel: "GameChannel", id: id },
       {
         received(data) {
-          fetch(`/games/${id}`, { headers: { accept: "application/json" } })
-          console.log(data); // called when data is broadcast in the cable
+          // console.log(data);
+          gameContainer.innerHTML = data
         },
       }
     );

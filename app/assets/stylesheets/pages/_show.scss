@@ -40,3 +40,10 @@
   width: 30%;
   margin: auto;
 }
+
+// section arrangement
+.competitors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}

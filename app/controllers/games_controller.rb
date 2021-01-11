@@ -6,6 +6,10 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: { game: @game } }
+    end
     @game.calculate_total
     @total = @game.total
   end
@@ -29,6 +33,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
+
     # reset
     if params[:game][:action] == 'join'
       unless @game.users.include?(current_user)
@@ -54,7 +59,10 @@ class GamesController < ApplicationController
     end
 
     @game.save
-
+    GameChannel.broadcast_to(
+      @game,
+      render_to_string(partial: "game_state", locals: {game: @game})
+    )
     render :show
   end
 
@@ -102,16 +110,11 @@ class GamesController < ApplicationController
       loser = @game.users[@game.turn]
       loser.dice.pop
       loser.save
-      # raise
-      # return 'under total, safe'
     else
       loser = @game.users[@game.turn - 1]
       loser.dice.pop
       loser.save
-      # @turn -= 1
-      # return 'over total, bust'
     end
-
     new_round
   end
 

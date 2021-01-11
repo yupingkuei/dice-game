@@ -1,4 +1,4 @@
-<div class="container">
+<div id="game" data-game-id="<%=@game.id%>" class="container">
   <h1>Games#show</h1>
   <% if @game.users.count == @game.max %>
     <h3>current turn: <%= @game.users[@game.turn].email %></h3>
@@ -52,6 +52,7 @@
       <%= f.hidden_field :action, value: 'reset' %>
       <%= f.submit "Reset"%>
     <% end %>
+    <%= render 'games/game_state', game: @game %>
   <% else %>
     <%# ----------------------awaiting players---------------------------- %>
     <i class="fas fa-spinner fa-spin"></i>

@@ -29,6 +29,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
+
     # reset
     if params[:game][:action] == 'join'
       unless @game.users.include?(current_user)
@@ -54,7 +55,11 @@ class GamesController < ApplicationController
     end
 
     @game.save
+    GameChannel.broadcast_to(
+      @game,
 
+      render_to_string(partial: "game_state", locals: {game: @game})
+    )
     render :show
   end
 

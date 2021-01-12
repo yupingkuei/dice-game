@@ -34,30 +34,28 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
 
-    # reset
+    # -----------------join game----------------------
     if params[:game][:action] == 'join'
       unless @game.users.include?(current_user)
         Session.create(game: @game, user: current_user)
       end
     end
+    # ------------------reset game----------------------
     if params[:game][:action] == 'reset'
       #
       new_game
     end
-    # call bluff
-
-    #filera
+    # -------------------call bluff---------------------
     call_bluff if params[:game][:action] == 'call'
-    # raise bet
+    # --------------------raise bet--------------------------
     if params[:game][:action] == 'raise'
-      if raised?(params[:game][:quantity], params[:game][:value])
+      if raised?(params[:game][:quantity], params[:value])
         @game.quantity = params[:game][:quantity]
         @game.value = params[:value]
         next_turn
       end
       next_turn
     end
-
     @game.save
     GameChannel.broadcast_to(
       @game,
@@ -81,7 +79,7 @@ class GamesController < ApplicationController
   end
 
   def raised?(num, val)
-    val.to_i < 7 && (num.to_i > @game.quantity || val.to_i > @game.value)
+    val.to_i < 7 && (num.to_i > @game.quantity || (val.to_i > @game.value && num.to_i >= @game.quantity))
   end
 
   def new_round

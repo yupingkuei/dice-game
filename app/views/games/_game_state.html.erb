@@ -9,7 +9,7 @@
           <i class="fas fa-angle-double-right"></i>
         <% end %>
         <% @game.users[@game.users.index(current_user)- 3].dice.each do |die| %>
-          <%= image_tag "dice7.png" , width: 100, class: 'dice-img' %>
+          <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
         <% end %>
       <% end %>
     </div>
@@ -20,7 +20,7 @@
           <i class="fas fa-angle-double-right"></i>
         <% end %>
         <% @game.users[@game.users.index(current_user)- 2].dice.each do |die| %>
-          <%= image_tag "dice7.png" , width: 100, class: 'dice-img' %>
+          <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
         <% end %>
       <% end %>
     </div>
@@ -31,7 +31,7 @@
           <i class="fas fa-angle-double-right"></i>
         <% end %>
         <% @game.users[@game.users.index(current_user)- 1].dice.each do |die| %>
-          <%= image_tag "dice7.png" , width: 100, class: 'dice-img'%>
+          <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img'%>
         <% end %>
       <% end %>
     </div>

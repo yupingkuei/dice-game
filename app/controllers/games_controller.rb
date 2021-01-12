@@ -54,7 +54,6 @@ class GamesController < ApplicationController
         @game.value = params[:value]
         next_turn
       end
-      next_turn
     end
     @game.save
     GameChannel.broadcast_to(
@@ -135,10 +134,16 @@ class GamesController < ApplicationController
   end
 
   def next_turn
-    @game.turn < (@game.rotation.count - 1) ? @game.turn += 1 : @game.turn = 0
+    # rotation = @game.users.select { |user| user.dice.count > 0 }
+    if @game.turn < (@game.users.count - 1)
+      @game.turn += 1
+    else
+      @game.turn = 0
+    end
+    @game.turn += 1 if @game.users[@game.turn].dice.count < 1
   end
 
   def current_turn_user
-    @game.rotation[@game.turn]
+    @game.users[@game.turn]
   end
 end

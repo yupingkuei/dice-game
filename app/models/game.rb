@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :users, through: :sessions
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
-  attr_accessor :total
+  attr_accessor :total, :loser
 
   # def new_game(state = [])
   #   users.each { |user| state << { name: user.email, dice: roll(5) } }
@@ -112,6 +112,15 @@ class Game < ApplicationRecord
           @total[die] += 1
         end
       end
+    end
+  end
+
+  def calculate_loser
+    calculate_total
+    if total[value] >= quantity
+      @loser = users[turn]
+    else
+      @loser = users[turn - 1]
     end
   end
 end

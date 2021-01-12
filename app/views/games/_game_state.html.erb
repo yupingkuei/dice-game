@@ -1,6 +1,5 @@
 <h1>Game <%= game.id %></h1>
 <% if @game.users.count == @game.max %>
-  <h3>current turn: <%= @game.users[@game.turn].email.match(/([^@]+)/) %></h3>
   <div class="competitors">
     <div class="competitor">
       <% if  @game.users.second%>
@@ -36,32 +35,40 @@
       <% end %>
     </div>
   </div>
-  <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60, class: 'dice-img' %></h2>
-  <h2><%= @total %></h2>
+  <div class="current-bet">
+    <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60, class: 'dice-img' %></h2>
+  </div>
+  <h2><%#= @total %></h2>
   <%# current user %>
-  <h1><%= current_user.email.match(/([^@]+)/) %></h1>
+  <div class="current-user">
+    <h1><%= current_user.email.match(/([^@]+)/) %></h1>
+    <% if current_user.email == @game.users[@game.turn].email %>
+      <i class="fas fa-angle-double-right"></i>
+    <% end %>
+    <% @game.users[@game.users.index(current_user)].dice.each do |die| %>
+      <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
+    <% end %>
+  </div>
   <% if current_user.email == @game.users[@game.turn].email %>
-    <i class="fas fa-angle-double-right"></i>
-  <% end %>
-  <% @game.users[@game.users.index(current_user)].dice.each do |die| %>
-    <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
+    <p><i class="fas fa-info-circle"></i> It's your turn! Bluff or Call Bluff</p>
+  <% else %>
+    <p><i class="fas fa-info-circle"></i> Waiting for <%= @game.users[@game.turn].email.match(/([^@]+)/) %>...</p>
   <% end %>
   <%#----------------------------action----------------------------%>
   <%# if current_user.email == @game.users[@game.turn].email %>
   <div class="action">
-    <div>
-      <h2>enter bet</h2>
-      <div class="bet-form">
-        <%= simple_form_for(@game, remote: true) do |f| %>
-          <%= f.input :quantity, input_html: { class: 'bet-quantity' } %>
+    <div class="form-container">
+      <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
+        <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
+        <div class="bet-value">
           <%= f.hidden_field :action, value: 'raise', remote: true %>
           <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
           <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
           <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
           <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
           <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
     <div>
       <%= simple_form_for(@game) do |f| %>

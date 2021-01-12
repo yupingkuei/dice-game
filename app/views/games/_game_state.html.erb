@@ -1,5 +1,7 @@
 <h1>Game <%= game.id %></h1>
 <% if @game.users.count == @game.max %>
+  <div class="result">
+  </div>
   <h3>current turn: <%= @game.users[@game.turn].email.match(/([^@]+)/) %></h3>
   <div class="competitors">
     <div class="competitor">
@@ -69,6 +71,9 @@
         <%= f.submit "Call Bluff"%>
       <% end %>
     </div>
+  </div>
+  <div class="action">
+    <%= render 'games/game_result', game: @game %>
   </div>
   <%# end %>
   <%# --------------------mod actions----------------------------- %>

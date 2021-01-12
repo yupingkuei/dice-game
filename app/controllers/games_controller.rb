@@ -59,9 +59,9 @@ class GamesController < ApplicationController
     @game.save
     GameChannel.broadcast_to(
       @game,
-      render_to_string(partial: "game_state", locals: {game: @game})
+      render_to_string(partial: 'game_state', locals: { game: @game })
     )
-    render :show
+    # render :show
   end
 
   def destroy
@@ -79,7 +79,11 @@ class GamesController < ApplicationController
   end
 
   def raised?(num, val)
-    val.to_i < 7 && (num.to_i > @game.quantity || (val.to_i > @game.value && num.to_i >= @game.quantity))
+    val.to_i < 7 &&
+      (
+        num.to_i > @game.quantity ||
+          (val.to_i > @game.value && num.to_i >= @game.quantity)
+      )
   end
 
   def new_round
@@ -104,15 +108,24 @@ class GamesController < ApplicationController
 
   def call_bluff
     @game.calculate_total
-    if @game.total[@game.value] >= @game.quantity
-      loser = @game.users[@game.turn]
-      loser.dice.pop
-      loser.save
-    else
-      loser = @game.users[@game.turn - 1]
-      loser.dice.pop
-      loser.save
-    end
+    @game.calculate_loser
+    # --------alert here--------------
+    GameChannel.broadcast_to(
+      @game,
+      render_to_string(partial: 'game_result', locals: { game: @game })
+    )
+    sleep(5)
+    # if @game.total[@game.value] >= @game.quantity
+    #   loser = @game.users[@game.turn]
+    #   loser.dice.pop
+    #   loser.save
+    # else
+    #   loser = @game.users[@game.turn - 1]
+    #   loser.dice.pop
+    #   loser.save
+    # end
+    @game.loser.dice.pop
+    @game.loser.save
     new_round
   end
 

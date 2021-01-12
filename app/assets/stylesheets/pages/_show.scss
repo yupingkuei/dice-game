@@ -21,25 +21,35 @@
   background: url("dice6.png");
 }
 
-.dice2,
-.dice3,
-.dice4,
-.dice5,
-.dice6 {
+.dice-img {
   color: transparent;
   background-size: cover;
   height: 60px;
   width: 60px;
   border: none;
+  border-radius: 2px;
 }
 
 .action {
   border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  .dice-img {
+    height: 40px;
+    width: 40px;
+  }
 }
 .form-container {
   display: flex;
 }
-.bet-form {
-  width: 30%;
-  margin: auto;
+
+// section arrangement
+.competitors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  .dice-img {
+    height: 40px;
+    width: 40px;
+  }
 }

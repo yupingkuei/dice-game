@@ -10,8 +10,14 @@ const initGameCable = () => {
       { channel: "GameChannel", id: id },
       {
         received(data) {
-          // console.log(data);
-          gameContainer.innerHTML = data
+          if (data[1] === "h") {
+            gameContainer.innerHTML = data;
+          } else {
+            const action = document.querySelector(".action");
+            action.innerHTML = data;
+          }
+
+          // gameContainer.innerHTML = data;
         },
       }
     );

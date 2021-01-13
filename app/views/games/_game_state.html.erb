@@ -1,100 +1,122 @@
-<h1>Game <%= game.id %></h1>
-<% if @game.users.count == @game.max %>
-  <div class="competitors">
-    <div class="competitor">
-      <% if  @game.users.second%>
-        <h1><%= @game.users[@game.users.index(current_user) - (@game.users.count - 1)].email.match(/([^@]+)/) %></h1>
-        <% if @game.users[@game.users.index(current_user) - (@game.users.count - 1)].email == @game.users[@game.turn].email %>
-          <i class="fas fa-angle-double-right"></i>
+<div class="background">
+  <h1>Game <%= game.id %></h1>
+  <% if @game.users.count == @game.max %>
+    <div class="competitors">
+      <div class="competitor">
+        <% if  @game.users.second%>
+          <h1><%= @game.users[@game.users.index(current_user) - (@game.users.count - 1)].email.match(/([^@]+)/) %></h1>
+          <% if @game.users[@game.users.index(current_user) - (@game.users.count - 1)].email == @game.users[@game.turn].email %>
+            <i class="fas fa-angle-double-right"></i>
+          <% end %>
+          <% @game.users[@game.users.index(current_user)- 3].dice.each do |die| %>
+            <%= image_tag "dice#{die}.png" , width: 60, class: 'dice-img' %>
+          <% end %>
         <% end %>
-        <% @game.users[@game.users.index(current_user)- 3].dice.each do |die| %>
-          <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
+      </div>
+      <div class="competitor">
+        <% if  @game.users.third%>
+          <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 2)].email.match(/([^@]+)/) %></h1>
+          <% if @game.users[@game.users.index(current_user)- (@game.users.count - 2)].email == @game.users[@game.turn].email %>
+            <i class="fas fa-angle-double-right"></i>
+          <% end %>
+          <% @game.users[@game.users.index(current_user)- 2].dice.each do |die| %>
+            <%= image_tag "dice#{die}.png" , width: 60, class: 'dice-img' %>
+          <% end %>
         <% end %>
+      </div>
+      <div class="competitor">
+        <% if  @game.users.fourth%>
+          <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 3)].email.match(/([^@]+)/) %></h1>
+          <% if @game.users[@game.users.index(current_user)- (@game.users.count - 3)] == @game.users[@game.turn].email %>
+            <i class="fas fa-angle-double-right"></i>
+          <% end %>
+          <% @game.users[@game.users.index(current_user)- 1].dice.each do |die| %>
+            <%= image_tag "dice#{die}.png" , width: 60, class: 'dice-img'%>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <h2><%#= @total %></h2>
+    <%# current user %>
+    <div class="current-user">
+      <h1><%= current_user.email.match(/([^@]+)/) %></h1>
+      <% if current_user.email == @game.users[@game.turn].email %>
+        <i class="fas fa-angle-double-right"></i>
+      <% end %>
+      <% @game.users[@game.users.index(current_user)].dice.each do |die| %>
+        <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
       <% end %>
     </div>
-    <div class="competitor">
-      <% if  @game.users.third%>
-        <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 2)].email.match(/([^@]+)/) %></h1>
-        <% if @game.users[@game.users.index(current_user)- (@game.users.count - 2)].email == @game.users[@game.turn].email %>
-          <i class="fas fa-angle-double-right"></i>
-        <% end %>
-        <% @game.users[@game.users.index(current_user)- 2].dice.each do |die| %>
-          <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
-        <% end %>
-      <% end %>
+    <div class="current-bet">
+      <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60, class: 'dice-img' %></h2>
     </div>
-    <div class="competitor">
-      <% if  @game.users.fourth%>
-        <h1><%= @game.users[@game.users.index(current_user)- (@game.users.count - 3)].email.match(/([^@]+)/) %></h1>
-        <% if @game.users[@game.users.index(current_user)- (@game.users.count - 3)] == @game.users[@game.turn].email %>
-          <i class="fas fa-angle-double-right"></i>
-        <% end %>
-        <% @game.users[@game.users.index(current_user)- 1].dice.each do |die| %>
-          <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img'%>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-  <div class="current-bet">
-    <h2>current bet <%= @game.quantity %> x <%= image_tag "dice#{@game.value}.png" , width: 60, class: 'dice-img' %></h2>
-  </div>
-  <h2><%#= @total %></h2>
-  <%# current user %>
-  <div class="current-user">
-    <h1><%= current_user.email.match(/([^@]+)/) %></h1>
-    <% if current_user.email == @game.users[@game.turn].email %>
-      <i class="fas fa-angle-double-right"></i>
-    <% end %>
-    <% @game.users[@game.users.index(current_user)].dice.each do |die| %>
-      <%= image_tag "dice#{die}.png" , width: 100, class: 'dice-img' %>
-    <% end %>
-  </div>
-  <% if current_user.email == @game.users[@game.turn].email %>
-    <p><i class="fas fa-info-circle"></i> It's your turn! Bluff or Call Bluff</p>
-  <% else %>
-    <p><i class="fas fa-info-circle"></i> Waiting for <%= @game.users[@game.turn].email.match(/([^@]+)/) %>...</p>
-  <% end %>
-  <%#----------------------------action----------------------------%>
-  <%# if current_user.email == @game.users[@game.turn].email %>
-  <div class="action">
-    <div class="form-container">
-      <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
-        <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
-        <div class="bet-value">
-          <%= f.hidden_field :action, value: 'raise', remote: true %>
-          <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
-          <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
-          <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
-          <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
-          <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
+    <%#----------------------------action----------------------------%>
+    <%# if current_user.email == @game.users[@game.turn].email %>
+    <div class="action">
+      <% if current_user.email == @game.users[@game.turn].email %>
+        <div class="form-container">
+          <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
+            <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
+            <div class="bet-value">
+              <%= f.hidden_field :action, value: 'raise', remote: true %>
+              <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
+              <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
+              <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
+              <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
+              <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
+            </div>
+          <% end %>
         </div>
+        <div>
+          <%= simple_form_for(@game) do |f| %>
+            <%= f.hidden_field :action, value: 'call', remote: true %>
+            <%= f.submit "Call Bluff"%>
+          <% end %>
+        </div>
+      <% else %>
+        <p><i class="fas fa-info-circle"></i> Waiting for <%= @game.users[@game.turn].email.match(/([^@]+)/) %>...</p>
       <% end %>
     </div>
-    <div>
-      <%= simple_form_for(@game) do |f| %>
-        <%= f.hidden_field :action, value: 'call', remote: true %>
-        <%= f.submit "Call Bluff"%>
-      <% end %>
+    <div class="action">
+      <%= render 'games/game_result', game: @game %>
     </div>
-  </div>
-  <div class="action">
-    <%= render 'games/game_result', game: @game %>
-  </div>
-  <%# end %>
-  <%# --------------------mod actions----------------------------- %>
-  <h2>Reset the game</h2>
-  <%= simple_form_for(@game) do |f| %>
-    <%= f.hidden_field :action, value: 'reset' %>
-    <%= f.submit "Reset"%>
+    <%# end %>
+    <%# --------------------mod actions----------------------------- %>
+    <h2>Reset the game</h2>
+    <%= simple_form_for(@game) do |f| %>
+      <%= f.hidden_field :action, value: 'reset' %>
+      <%= f.submit "Reset"%>
+    <% end %>
+    <div class="action">
+      <div class="form-container">
+        <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
+          <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
+          <div class="bet-value">
+            <%= f.hidden_field :action, value: 'raise', remote: true %>
+            <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
+            <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
+            <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
+            <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
+            <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <%= simple_form_for(@game) do |f| %>
+          <%= f.hidden_field :action, value: 'call', remote: true %>
+          <%= f.submit "Call Bluff"%>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <%# ----------------------awaiting players---------------------------- %>
+    <i class="fas fa-spinner fa-spin"></i>
+    awaiting players
+    <% @game.users.each do |user|%>
+      <h3><%= user.email %></h3>
+    <% end %>
+    <% if current_user == @game.owner %>
+      <%= link_to "End Game", game_path(@game), class: 'btn btn-primary long-btn', method: :delete, data: { confirm: "end game?" } %>
+    <% end %>
   <% end %>
-<% else %>
-  <%# ----------------------awaiting players---------------------------- %>
-  <i class="fas fa-spinner fa-spin"></i>
-  awaiting players
-  <% @game.users.each do |user|%>
-    <h3><%= user.email %></h3>
-  <% end %>
-  <% if current_user == @game.owner %>
-    <%= link_to "End Game", game_path(@game), class: 'btn btn-primary long-btn', method: :delete, data: { confirm: "end game?" } %>
-  <% end %>
-<% end %>
+</div>

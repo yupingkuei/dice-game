@@ -1,3 +1,7 @@
+.background {
+  background-color: lightblue;
+}
+
 .dice2 {
   background: url("dice2.png");
 }
@@ -49,8 +53,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   .dice-img {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
   }
 }
 .current-bet {

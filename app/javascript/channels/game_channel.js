@@ -10,7 +10,8 @@ const initGameCable = () => {
       { channel: "GameChannel", id: id },
       {
         received(data) {
-          if (data[1] === "h") {
+          console.log(data[12]);
+          if (data[12] === "b") {
             gameContainer.innerHTML = data;
           } else {
             const action = document.querySelector(".action");

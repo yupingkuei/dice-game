@@ -92,7 +92,6 @@ class GamesController < ApplicationController
     end
     @game.quantity = 0
     @game.value = 2
-    next_turn
   end
 
   def new_game
@@ -126,6 +125,7 @@ class GamesController < ApplicationController
     @game.loser.dice.pop
     @game.loser.save
     new_round
+    next_turn if @game.users[@game.turn].dice.count < 1
   end
 
   def round_loss(user)
@@ -140,7 +140,7 @@ class GamesController < ApplicationController
     else
       @game.turn = 0
     end
-    @game.turn += 1 if @game.users[@game.turn].dice.count < 1
+    next_turn if @game.users[@game.turn].dice.count < 1
   end
 
   def current_turn_user

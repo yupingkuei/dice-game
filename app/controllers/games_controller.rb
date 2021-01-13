@@ -58,8 +58,25 @@ class GamesController < ApplicationController
     @game.save
     GameChannel.broadcast_to(
       @game,
-      render_to_string(partial: 'game_state', locals: { game: @game })
+      render_to_string(partial: 'current_bet', locals: { game: @game })
     )
+    @game.users.each do |user|
+      GameChannel.broadcast_to(
+        @game,
+        render_to_string(partial: 'player_dice', locals: { user: user })
+      )
+    end
+    # if current_user.email == @game.users[@game.turn].email
+    #   GameChannel.broadcast_to(
+    #     @game,
+    #     render_to_string(partial: 'action', locals: { game: @game })
+    #   )
+    # else
+    GameChannel.broadcast_to(
+      @game,
+      render_to_string(partial: 'waiting', locals: { game: @game })
+    )
+    # end
     # render :show
   end
 
@@ -108,10 +125,12 @@ class GamesController < ApplicationController
     @game.calculate_total
     @game.calculate_loser
     # --------alert here--------------
+    @game.round_end = 'true'
     GameChannel.broadcast_to(
       @game,
       render_to_string(partial: 'game_result', locals: { game: @game })
     )
+    @game.round_end = 'false'
     sleep(5)
     # if @game.total[@game.value] >= @game.quantity
     #   loser = @game.users[@game.turn]
@@ -122,6 +141,7 @@ class GamesController < ApplicationController
     #   loser.dice.pop
     #   loser.save
     # end
+
     @game.loser.dice.pop
     @game.loser.save
     new_round

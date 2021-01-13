@@ -37,7 +37,7 @@
     <%#----------------------------action----------------------------%>
     <%# if current_user.email == @game.users[@game.turn].email %>
     <div class="action">
-      temp
+      <%= render 'waiting', user: current_user %>
     </div>
     <%# end %>
     <%# --------------------mod actions----------------------------- %>

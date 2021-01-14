@@ -3,19 +3,19 @@
 }
 
 .dice2 {
-  background-image: url("/assets/dice2.png");
+  background: url("/assets/dice2.png");
 }
 .dice3 {
-  background-image: url("../assets/dice3.png");
+  background: url("/assets/dice3.png");
 }
 .dice4 {
   background: url("/assets/dice4.png");
 }
 .dice5 {
-  background: url("../assets/dice5.png");
+  background: url("/assets/dice5.png");
 }
 .dice6 {
-  background: url("images/dice6.png");
+  background: url("/assets/dice6.png");
 }
 
 .dice-img {
@@ -47,6 +47,12 @@
   width: 88px;
 }
 
+.hide {
+  img {
+    content: url("/assets/dice7.png");
+  }
+}
+
 // section arrangement
 .competitors {
   display: grid;
@@ -62,4 +68,12 @@
 }
 .current-user {
   margin-bottom: 16px;
+}
+
+.player-name {
+  h2 {
+    display: none;
+  }
+  display: flex;
+  justify-content: center;
 }

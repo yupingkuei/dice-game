@@ -1,7 +1,10 @@
-<h1><%= user.name %></h1>
-<% if user.email == @game.users[@game.turn].email %>
-  <i class="fas fa-angle-double-right"></i>
-<% end %>
+<div class="player-name">
+  <% if user.email == @game.users[@game.turn].email %>
+    <div class="turn-icon"><i class="fas fa-angle-double-right"></i></div>
+  <% end %>
+  <h1><%= user.name %></h1>
+  <h2 class="email"><%= user.email %></h2>
+</div>
 <% user.dice.each do |die| %>
   <%= image_tag "dice#{die}.png" , width: 60, class: 'dice-img' %>
 <% end %>

@@ -2,6 +2,8 @@
   padding: 8px;
   margin: auto;
   text-align: center;
-  background-color: black;
+  background-color: pink;
   min-height: calc(100vh - 66px);
+  display: flex;
+  flex-flow: column;
 }

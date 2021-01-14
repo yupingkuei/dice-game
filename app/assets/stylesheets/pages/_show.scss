@@ -22,15 +22,13 @@
   border: none;
   border-radius: 2px;
 }
-
+// action
 .action {
   padding: 8px;
   background-color: white;
   border-radius: 4px;
   min-height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex: 1 1 auto;
   .dice-img {
     height: 30px;
     width: 30px;
@@ -38,6 +36,11 @@
   p {
     margin: 0;
   }
+}
+.action-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .bet-form {
   display: flex;
@@ -47,11 +50,6 @@
   width: 88px;
 }
 
-.hide {
-  img {
-    content: url("/assets/dice7.png");
-  }
-}
 // section arrangement
 .competitors {
   display: grid;
@@ -83,4 +81,17 @@
   }
   display: flex;
   justify-content: center;
+}
+
+.hide {
+  img {
+    content: url("/assets/dice7.png");
+  }
+}
+// back
+.back {
+  color: white;
+  display: block;
+  text-align: initial;
+  padding: 4px 0;
 }

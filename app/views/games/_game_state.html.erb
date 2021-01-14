@@ -36,8 +36,12 @@
     </div>
     <%#----------------------------action----------------------------%>
     <%# if current_user.email == @game.users[@game.turn].email %>
-    <div class="action">
-      <%= render 'waiting', user: current_user %>
+    <div class="action" data-user="<%=current_user.name%>">
+      <% if @game.users[@game.turn].email == current_user.email %>
+        <%= render 'action', user: current_user %>
+      <% else %>
+        <%= render 'waiting', user: current_user %>
+      <% end %>
     </div>
     <%# end %>
     <%# --------------------mod actions----------------------------- %>

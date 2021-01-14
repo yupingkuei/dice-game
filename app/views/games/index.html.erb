@@ -4,7 +4,7 @@
 <% @games.each do |game| %>
   <h2>game <%= game.id %></h2>
   <% game.users.each do |user| %>
-    <%= user.email %>
+    <%= user.name %>
   <% end %>
   <p><%= game.max - game.users.count %> more players</p>
   <% if game.users.count < game.max || game.users.include?(current_user) %>

@@ -1,5 +1,4 @@
 <div class="background">
-  <h1>Game <%= game.id %></h1>
   <% if @game.users.count == @game.max %>
     <div class="competitors hide">
       <div class="competitor">
@@ -26,7 +25,7 @@
     </div>
     <h2><%#= @total %></h2>
     <%# current user %>
-    <div class="current-user">
+    <div class="current-user competitor">
       <div class="player 0">
         <%= render 'games/player_dice', user: current_user %>
       </div>
@@ -43,7 +42,7 @@
         <%= render 'waiting', user: current_user %>
       <% end %>
     </div>
-    <%# end %>
+    <%= link_to "Back", games_path, class: "back" %>
     <%# --------------------mod actions----------------------------- %>
     <h2>Reset the game</h2>
     <%= simple_form_for(@game) do |f| %>

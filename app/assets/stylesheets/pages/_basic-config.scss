@@ -1,7 +1,14 @@
 .main-wrapper {
-  margin: 16px;
+  padding: 8px;
   margin: auto;
   text-align: center;
-  background-color: white;
+  background-color: pink;
   min-height: calc(100vh - 66px);
+  display: flex;
+  flex-flow: column;
+}
+.session {
+  background-color: white;
+  padding: 32px;
+  border-radius: 4px;
 }

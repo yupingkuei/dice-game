@@ -15,10 +15,13 @@ const initGameCable = () => {
       {
         received(data) {
           // current bet condition
-          if (data[4] === "c") {
+          if (data.split(" ")[1].trim() === 'class="current-bet-content">') {
+            console.log(data);
             const currentBet = document.querySelector(".current-bet");
             currentBet.innerHTML = data;
-          } else if (data.split(" ")[1].trim() === "loses") {
+          }
+          // loses
+          else if (data.split(" ")[1].trim() === 'class="loser">') {
             //shows opponents dice
             competitors.classList.remove("hide");
             document.querySelector(".action").innerHTML = data;

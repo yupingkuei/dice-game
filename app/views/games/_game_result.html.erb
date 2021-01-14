@@ -1,5 +1,7 @@
-<% @game.calculate_loser %>
-<%= @game.loser.email %> loses
-<% @game.total.each do |k, v| %>
-  <%= image_tag "dice#{k}.png" , width: 100, class: 'dice-img' %> x <%= v %>
-<% end %>
+<div class="loser">
+  <% @game.calculate_loser %>
+  <%= @game.loser.name %> loses
+  <% @game.total.each do |k, v| %>
+    <%= image_tag "dice#{k}.png" , width: 100, class: 'dice-img' %> x <%= v %>
+  <% end %>
+</div>

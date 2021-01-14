@@ -1,22 +1,3 @@
-<p><i class="fas fa-info-circle"></i> Waiting for <%= @game.users[@game.turn].email.match(/([^@]+)/) %>...</p>
-<% if current_user.email == @game.users[@game.turn].email %>
-  <div class="form-container">
-    <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
-      <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
-      <div class="bet-value">
-        <%= f.hidden_field :action, value: 'raise', remote: true %>
-        <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
-        <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
-        <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
-        <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
-        <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
-      </div>
-    <% end %>
-  </div>
-  <div>
-    <%= simple_form_for(@game) do |f| %>
-      <%= f.hidden_field :action, value: 'call', remote: true %>
-      <%= f.submit "Call Bluff"%>
-    <% end %>
-  </div>
-<% end %>
+<div class="action-content">
+  <p><i class="fas fa-info-circle"></i> Waiting for <%= @game.users[@game.turn].name %>...</p>
+</div>

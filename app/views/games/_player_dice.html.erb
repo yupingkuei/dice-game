@@ -1,4 +1,4 @@
-<h1><%= user.email.match(/([^@]+)/) %></h1>
+<h1><%= user.name %></h1>
 <% if user.email == @game.users[@game.turn].email %>
   <i class="fas fa-angle-double-right"></i>
 <% end %>

@@ -66,15 +66,14 @@ class GamesController < ApplicationController
         render_to_string(partial: 'player_dice', locals: { user: user })
       )
     end
-    # if current_user.email == @game.users[@game.turn].email
-    #   GameChannel.broadcast_to(
-    #     @game,
-    #     render_to_string(partial: 'action', locals: { game: @game })
-    #   )
-    # else
+
     GameChannel.broadcast_to(
       @game,
-      render_to_string(partial: 'waiting', locals: { game: @game })
+      render_to_string(partial: 'waiting', locals: { user: current_user })
+    )
+    GameChannel.broadcast_to(
+      @game,
+      render_to_string(partial: 'action', locals: { game: @game })
     )
     # end
     # render :show

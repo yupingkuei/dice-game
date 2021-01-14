@@ -6,6 +6,7 @@ const initGameCable = () => {
   if (gameContainer) {
     const id = gameContainer.dataset.gameId;
     const players = document.querySelectorAll(".player");
+    const competitors = document.querySelector(".competitors");
     const action = document.querySelector(".action");
     const user = action.dataset.user;
     let current = "";
@@ -13,29 +14,43 @@ const initGameCable = () => {
       { channel: "GameChannel", id: id },
       {
         received(data) {
+          // current bet condition
           if (data[4] === "c") {
             const currentBet = document.querySelector(".current-bet");
             currentBet.innerHTML = data;
-          } else if (
-            data.split(" ")[1].trim() === "loses" ||
+          } else if (data.split(" ")[1].trim() === "loses") {
+            //shows opponents dice
+            competitors.classList.remove("hide");
+            document.querySelector(".action").innerHTML = data;
+          }
+          // action window condition
+          else if (
+            // fills action based on current turn
             (data.split(" ")[1].trim() === 'class="action-content">' &&
               current != user) ||
             (data.split(" ")[1].trim() === 'class="form-container">' &&
               current === user)
           ) {
-            console.log(current == user);
             document.querySelector(".action").innerHTML = data;
-          } else {
+          }
+          // player's dice
+          else if (data.split(" ")[1].trim() === 'class="player-name">') {
+            console.log(data.split(" ")[1]);
+            //hides opponents dice
+            competitors.classList.add("hide");
             players.forEach((player) => {
               if (
-                data.split(" ")[0].trim() ===
-                `<h1>${player.innerText.trim()}</h1>`
+                //checks if player email matches incoming post email
+                player.querySelector(".email").innerText ===
+                data
+                  .match(/<h2 class="email">.*<\/h2>/g)[0]
+                  .replace(/<\/?[^>]+(>|$)/g, "")
               ) {
                 player.innerHTML = data;
-                if (data.length > 652) {
+                if (data.split(" ")[6] === `class="turn-icon"><i`) {
+                  // assigns current turn
                   current = data
-                    .split(" ")[0]
-                    .trim()
+                    .match(/<h2 class="email">.*<\/h2>/g)[0]
                     .replace(/<\/?[^>]+(>|$)/g, "");
                 }
               }

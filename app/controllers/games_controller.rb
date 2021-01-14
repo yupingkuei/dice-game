@@ -130,7 +130,7 @@ class GamesController < ApplicationController
       render_to_string(partial: 'game_result', locals: { game: @game })
     )
     @game.round_end = 'false'
-    sleep(5)
+    sleep(50)
     # if @game.total[@game.value] >= @game.quantity
     #   loser = @game.users[@game.turn]
     #   loser.dice.pop

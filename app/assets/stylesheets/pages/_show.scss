@@ -100,3 +100,79 @@
   text-align: initial;
   padding: 4px 0;
 }
+
+//form
+.bet-value {
+  .category-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .category-item {
+  }
+
+  .category-selector {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  .category-selector + label {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+  }
+
+  .category-selector:checked + label {
+    color: white !important;
+  }
+
+  #game_value_2 + label {
+    background-image: url("dice2.png");
+    background-size: cover;
+  }
+
+  #game_value_2:checked + label {
+    border-color: #FD1015;
+  }
+
+
+  #game_value_3 + label {
+    background-image: url("dice3.png");
+    background-size: cover;
+  }
+
+  #game_value_3:checked + label {
+    border-color: #FD1015;
+  }
+  #game_value_4 + label {
+    background-image: url("dice4.png");
+    background-size: cover;
+  }
+
+  #game_value_4:checked + label {
+    border-color: #FD1015;
+  }
+
+
+  #game_value_5 + label {
+    background-image: url("dice5.png");
+    background-size: cover;
+  }
+
+  #game_value_5:checked + label {
+    border-color: #FD1015;
+  }
+
+
+  #game_value_6 + label {
+    background-image: url("dice6.png");
+    background-size: cover;
+  }
+
+  #game_value_6:checked + label {
+    border-color: #FD1015;
+  }
+}

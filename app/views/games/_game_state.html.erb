@@ -62,9 +62,16 @@
             <%#= f.submit "4", class: 'dice4 dice-img', name: "value"%>
             <%#= f.submit "5", class: 'dice5 dice-img', name: "value"%>
             <%#= f.submit "6", class: 'dice6 dice-img', name: "value"%>
-            <%= f.collection_radio_buttons :value, [[2, '2'],[3, '3'],[4, '4'],[5, '5'],[6, '6']], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |dice| %>
-              <%= dice.label { image_tag("dice#{dice.text}.png") + dice.radio_button + dice.text } %>
-            <% end %>
+            <%#= f.collection_radio_buttons :value, [[2, '2'],[3, '3'],[4, '4'],[5, '5'],[6, '6']], :first, :last, item_wrapper_tag: false, boolean_style: :inline, item_label_class: 'this'  do |dice| %>
+              <%#= dice.label { image_tag("dice#{dice.text}.png") + dice.radio_button + dice.text } %>
+            <%# end %>
+            <%= f.input :value,
+            as: :radio_buttons,
+            collection_wrapper_tag: 'div',
+            collection_wrapper_class: 'category-wrapper',
+            item_wrapper_class: 'category-item',
+            input_html: {class: 'category-selector'},
+            collection: Game::DICES %>
             <%= f.submit "raise" %>
           </div>
         <% end %>

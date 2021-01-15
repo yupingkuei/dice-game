@@ -73,6 +73,7 @@ class GamesController < ApplicationController
     end
     @game.quantity = 0
     @game.value = 2
+    @game.save
   end
 
   # ------------------------new game method-----------------------

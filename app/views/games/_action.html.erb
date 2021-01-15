@@ -3,11 +3,8 @@
     <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
     <div class="bet-value">
       <%= f.hidden_field :action, value: 'raise', remote: true %>
-      <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
-      <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
-      <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
-      <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
-      <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
+      <%= f.input :value %>
+      <%= f.submit "raise" %>
     </div>
   <% end %>
 </div>

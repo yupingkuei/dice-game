@@ -9,13 +9,33 @@ Session.destroy_all
 Game.destroy_all
 User.destroy_all
 player1 =
-  User.create!(email: 'Player1@gmail.com', password: '123456', name: 'one')
+  User.create!(
+    email: 'Player1@gmail.com',
+    password: '123456',
+    name: 'one',
+    dice: [1, 2, 3, 4, 5, 6]
+  )
 player2 =
-  User.create!(email: 'Player2@gmail.com', password: '123456', name: 'two')
+  User.create!(
+    email: 'Player2@gmail.com',
+    password: '123456',
+    name: 'two',
+    dice: [1, 2, 3, 4, 5, 6]
+  )
 player3 =
-  User.create!(email: 'Player3@gmail.com', password: '123456', name: 'three')
+  User.create!(
+    email: 'Player3@gmail.com',
+    password: '123456',
+    name: 'three',
+    dice: [1, 2, 3, 4, 5, 6]
+  )
 player4 =
-  User.create!(email: 'Player4@gmail.com', password: '123456', name: 'four')
+  User.create!(
+    email: 'Player4@gmail.com',
+    password: '123456',
+    name: 'four',
+    dice: [1, 2, 3, 4, 5, 6]
+  )
 
 game1 =
   Game.create!(

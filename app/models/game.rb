@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   has_many :users, through: :sessions
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   attr_accessor :total, :loser
+  DICES = [2, 3, 4, 5, 6]
 
   # def new_game(state = [])
   #   users.each { |user| state << { name: user.email, dice: roll(5) } }

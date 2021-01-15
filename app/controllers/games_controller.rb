@@ -95,7 +95,9 @@ class GamesController < ApplicationController
     render_game('game_result')
     @game.loser.dice.pop
     @game.loser.save
+    @game.turn = @game.users.index(@game.loser)
     new_round
+
     next_turn if @game.users[@game.turn].dice.count < 1
   end
 

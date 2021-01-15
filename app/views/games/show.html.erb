@@ -1,3 +1,11 @@
 <div id="game" data-game-id="<%=@game.id%>">
-  <%= render 'games/game_state', game: @game %>
+  <% if @game.start %>
+    <%= render 'games/game_state', game: @game %>
+  <% else %>
+    <%= render 'games/queue', game: @game %>
+  <% end %>
 </div>
+<%= simple_form_for(@game) do |f| %>
+  <%= f.hidden_field :action, value: 'leave' %>
+  <%= f.submit "leave", class: 'btn btn-primary '%>
+<% end %>

@@ -4,4 +4,8 @@
 <% @game.total.each do |k, v| %>
   <%= image_tag "dice#{k}.png" , width: 100, class: 'dice-img' %> x <%= v %>
 <% end %>
+<%= simple_form_for(@game) do |f| %>
+  <%= f.hidden_field :action, value: 'next' %>
+  <%= f.submit "next"%>
+<% end %>
 </div>

@@ -32,7 +32,8 @@ const initGameCable = () => {
             (data.split(" ")[1].trim() === 'class="action-content">' &&
               current != user) ||
             (data.split(" ")[1].trim() === 'class="form-container">' &&
-              current === user)
+              current === user) ||
+            data.split(" ")[1].trim() === 'class="gameover">'
           ) {
             document.querySelector(".action").innerHTML = data;
           }

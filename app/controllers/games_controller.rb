@@ -75,8 +75,6 @@ class GamesController < ApplicationController
       @game,
       render_to_string(partial: 'action', locals: { game: @game })
     )
-    # end
-    # render :show
   end
 
   def destroy
@@ -130,17 +128,7 @@ class GamesController < ApplicationController
       render_to_string(partial: 'game_result', locals: { game: @game })
     )
     @game.round_end = 'false'
-    sleep(50)
-    # if @game.total[@game.value] >= @game.quantity
-    #   loser = @game.users[@game.turn]
-    #   loser.dice.pop
-    #   loser.save
-    # else
-    #   loser = @game.users[@game.turn - 1]
-    #   loser.dice.pop
-    #   loser.save
-    # end
-
+    sleep(10)
     @game.loser.dice.pop
     @game.loser.save
     new_round
@@ -153,7 +141,6 @@ class GamesController < ApplicationController
   end
 
   def next_turn
-    # rotation = @game.users.select { |user| user.dice.count > 0 }
     if @game.turn < (@game.users.count - 1)
       @game.turn += 1
     else

@@ -57,11 +57,15 @@
           <%= f.input :quantity, input_html: { class: 'bet-quantity' }, label: false %>
           <div class="bet-value">
             <%= f.hidden_field :action, value: 'raise', remote: true %>
-            <%= f.submit "2", class: 'dice2 dice-img', name: "value"%>
-            <%= f.submit "3", class: 'dice3 dice-img', name: "value"%>
-            <%= f.submit "4", class: 'dice4 dice-img', name: "value"%>
-            <%= f.submit "5", class: 'dice5 dice-img', name: "value"%>
-            <%= f.submit "6", class: 'dice6 dice-img', name: "value"%>
+            <%#= f.submit "2", class: 'dice2 dice-img', name: "value"%>
+            <%#= f.submit "3", class: 'dice3 dice-img', name: "value"%>
+            <%#= f.submit "4", class: 'dice4 dice-img', name: "value"%>
+            <%#= f.submit "5", class: 'dice5 dice-img', name: "value"%>
+            <%#= f.submit "6", class: 'dice6 dice-img', name: "value"%>
+            <%= f.collection_radio_buttons :value, [[2, '2'],[3, '3'],[4, '4'],[5, '5'],[6, '6']], :first, :last, item_wrapper_tag: false, boolean_style: :inline do |dice| %>
+              <%= dice.label { image_tag("dice#{dice.text}.png") + dice.radio_button + dice.text } %>
+            <% end %>
+            <%= f.submit "raise" %>
           </div>
         <% end %>
       </div>
@@ -84,4 +88,5 @@
     <% end %>
   <% end %>
 </div>
-
+% end %>
+</div>

@@ -34,9 +34,6 @@ class GamesController < ApplicationController
     call_bluff if params[:game][:action] == 'call'
     raise_bet if params[:game][:action] == 'raise'
     start_next if params[:game][:action] == 'next'
-    unless params[:game][:action] == 'next' || params[:game][:action] == 'call'
-      refresh_dom
-    end
   end
 
   def destroy
@@ -53,6 +50,7 @@ class GamesController < ApplicationController
       @game.quantity = params[:game][:quantity]
       @game.value = params[:value]
       next_turn
+      refresh_dom
     end
   end
 
@@ -86,6 +84,7 @@ class GamesController < ApplicationController
     @game.quantity = 0
     @game.value = 2
     @game.calculate_total
+    refresh_dom
   end
 
   # ------------------------call bluff method--------------------
@@ -114,7 +113,7 @@ class GamesController < ApplicationController
   end
 
   def raised?(num, val)
-    val.to_i < 7 &&
+    val.to_i < 7 && num.to_i > 0 &&
       (
         num.to_i > @game.quantity ||
           (val.to_i > @game.value && num.to_i >= @game.quantity)
@@ -134,6 +133,7 @@ class GamesController < ApplicationController
     unless @game.users.include?(current_user)
       Session.create(game: @game, user: current_user)
     end
+    refresh_dom
   end
 
   # -----------------------------channel methods---------------------------

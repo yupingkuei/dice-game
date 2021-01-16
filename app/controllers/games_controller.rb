@@ -31,8 +31,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     join_game if params[:game][:action] == 'join'
     leave_game if params[:game][:action] == 'leave'
-
-    start if params[:game][:action] == 'start'
+    start_game if params[:game][:action] == 'start'
     new_game if params[:game][:action] == 'reset'
     call_bluff if params[:game][:action] == 'call'
     raise_bet if params[:game][:action] == 'raise'
@@ -138,27 +137,28 @@ class GamesController < ApplicationController
   def join_game
     unless @game.users.include?(current_user)
       Session.create(game: @game, user: current_user)
+      render_game('queue')
     end
     render :show
   end
 
-  def start
+  def start_game
     @game.start = true
+    new_game
     @game.save
-    GameChannel.broadcast_to(@game, 'hello there')
+    GameChannel.broadcast_to(@game, 'start game')
   end
 
   def leave_game
-    redirect_to games_path
     @session = @game.sessions.find_by(user: current_user)
     @session.destroy
     @game.destroy if @game.sessions.count < 1
-    if @game.users.count < @game.max
+    if @game.start
       @game.start = false
       @game.save
-
-      render_game('queue')
     end
+    render_game('queue')
+    redirect_to games_path
   end
   # -----------------------------channel methods---------------------------
   def render_dice

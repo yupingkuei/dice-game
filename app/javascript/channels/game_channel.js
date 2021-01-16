@@ -1,12 +1,12 @@
 import consumer from "./consumer";
 // var my_var = <%= User.first.email %>
 
-const gameContainer = document.getElementById("game");
-const background = document.querySelector(".background");
-const id = gameContainer.dataset.gameId;
-
 const initGameCable = () => {
-  if (gameContainer) {
+  if (document.getElementById("game")) {
+    const gameContainer = document.getElementById("game");
+    const background = document.querySelector(".background");
+    const id = gameContainer.dataset.gameId;
+
     if (document.querySelector(".start")) {
       const players = document.querySelectorAll(".player");
       const competitors = document.querySelector(".competitors");
@@ -62,8 +62,10 @@ const initGameCable = () => {
                 }
               });
             } else if (data.split(" ")[1].trim() === 'class="queue">') {
+              console.log(data);
               gameContainer.innerHTML = data;
-            } else if ((data = "hello there")) {
+            } else if (data === "start game") {
+              console.log(data);
               location.reload();
             }
           },
@@ -74,7 +76,11 @@ const initGameCable = () => {
         { channel: "GameChannel", id: id },
         {
           received(data) {
-            location.reload();
+            if (data.split(" ")[1].trim() === 'class="queue">') {
+              gameContainer.innerHTML = data;
+            } else if ((data = "start game")) {
+              location.reload();
+            }
           },
         }
       );

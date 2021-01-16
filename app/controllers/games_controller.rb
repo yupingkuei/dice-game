@@ -132,11 +132,13 @@ class GamesController < ApplicationController
 
   # =========================join game=========================
   def join_game
-    unless @game.users.include?(current_user)
-      Session.create(game: @game, user: current_user)
-      render_game('queue')
+    if @game.users.count < @game.max
+      unless @game.users.include?(current_user)
+        Session.create(game: @game, user: current_user)
+        render_game('queue')
+      end
+      render :show
     end
-    render :show
   end
   # =========================start game=========================
   def start_game

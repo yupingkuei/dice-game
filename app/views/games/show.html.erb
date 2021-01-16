@@ -1,11 +1,13 @@
-<div id="game" data-game-id="<%=@game.id%>">
-  <% if @game.start %>
-    <%= render 'games/game_state', game: @game %>
-  <% else %>
-    <%= render 'games/queue', game: @game %>
+<% if @game.users.include?(current_user) %>
+  <div id="game" data-game-id="<%=@game.id%>">
+    <% if @game.start %>
+      <%= render 'games/game_state', game: @game %>
+    <% else %>
+      <%= render 'games/queue', game: @game %>
+    <% end %>
+  </div>
+  <%= simple_form_for(@game) do |f| %>
+    <%= f.hidden_field :action, value: 'leave' %>
+    <%= f.submit "leave" %>
   <% end %>
-</div>
-<%= simple_form_for(@game) do |f| %>
-  <%= f.hidden_field :action, value: 'leave' %>
-  <%= f.submit "leave" %>
 <% end %>

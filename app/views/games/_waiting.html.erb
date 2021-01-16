@@ -1,3 +1,7 @@
 <div class="action-content">
   <p><i class="fas fa-info-circle"></i> Waiting for <%= @game.users[@game.turn].name %>...</p>
 </div>
+<%= simple_form_for(@game) do |f| %>
+  <%= f.hidden_field :action, value: 'start' %>
+  <%= f.submit "start" %>
+<% end %>

@@ -1,31 +1,31 @@
 <div class="background">
-  <% if @game.users.count == @game.max %>
+  <div class="start">
     <div class="competitors hide">
       <div class="competitor">
         <% if  @game.users.second%>
           <div class="player 1">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user)- (@game.users.count - 1)] %>
+            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 1)] %>
           </div>
         <% end %>
       </div>
       <div class="competitor">
         <% if  @game.users.third%>
           <div class="player 2">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user)- (@game.users.count - 2)] %>
+            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 2)] %>
           </div>
         <% end %>
       </div>
       <div class="competitor">
         <% if  @game.users.fourth%>
           <div class="player 3">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user)- (@game.users.count - 3)] %>
+            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 3)] %>
           </div>
         <% end %>
       </div>
       <div class="competitor">
         <% if  @game.users.fifth%>
           <div class="player 4">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user)- (@game.users.count - 4)] %>
+            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 4)] %>
           </div>
         <% end %>
       </div>
@@ -51,7 +51,6 @@
         <%= render 'waiting', user: current_user %>
       <% end %>
     </div>
-    <%= link_to "Back", games_path, class: "back" %>
     <%# --------------------mod actions----------------------------- %>
     <h2>Reset the game</h2>
     <%= simple_form_for(@game) do |f| %>
@@ -90,16 +89,7 @@
         <% end %>
       </div>
     </div>
-  <% else %>
-    <%# ----------------------awaiting players---------------------------- %>
-    <i class="fas fa-spinner fa-spin"></i>
-    awaiting players
-    <% @game.users.each do |user|%>
-      <h3><%= user.email %></h3>
-    <% end %>
-    <% if current_user == @game.owner %>
-      <%= link_to "End Game", game_path(@game), class: 'btn btn-primary long-btn', method: :delete, data: { confirm: "end game?" } %>
-    <% end %>
-  <% end %>
+  </div>
+  <%# ----------------------awaiting players---------------------------- %>
 </div>
 

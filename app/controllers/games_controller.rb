@@ -134,7 +134,6 @@ class GamesController < ApplicationController
   def join_game
     unless @game.users.include?(current_user)
       Session.create(game: @game, user: current_user)
-      raise
       render_game('queue')
     end
     render :show

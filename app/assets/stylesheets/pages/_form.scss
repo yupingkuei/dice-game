@@ -1,0 +1,154 @@
+//form
+.form-container {
+  display: flex;
+  justify-content: space-around;
+}
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  padding: 20px 0 0 0;
+}
+.minus {
+  background: url("/assets/down.png");
+}
+.plus {
+  background: url("/assets/up.png");
+  margin-bottom: -10px !important;
+}
+.plus,
+.minus {
+  width: 40px;
+  height: 40px;
+  background-size: cover !important;
+  border: none;
+  margin: auto;
+}
+.bet-input {
+  display: flex;
+  justify-content: space-around;
+  width: 240px;
+  h2 {
+    margin: auto 0;
+  }
+}
+.submit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100px;
+  input {
+    margin: auto 0;
+  }
+  .bluff {
+    margin: auto 0;
+  }
+}
+.bet-quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 60px !important;
+
+  input {
+    border: none;
+    font-size: 28px;
+    text-align: center;
+    padding-right: none !important;
+    background-image: none !important;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    background-image: none;
+    padding-right: none !important;
+  }
+  input[type="checkbox"]:focus {
+    outline: none !important;
+    padding-right: none !important;
+  }
+}
+.value-input {
+  display: none;
+}
+.bet-image {
+  width: 60px;
+  height: 60px;
+  background-size: cover !important;
+}
+
+.bet-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.bet-value2 {
+  .category-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .category-item {
+  }
+
+  .category-selector {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  .category-selector + label {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+  }
+
+  .category-selector:checked + label {
+    color: white !important;
+  }
+
+  #game_value_2 + label {
+    background-image: url("dice2.png");
+    background-size: cover;
+  }
+
+  #game_value_2:checked + label {
+    border-color: #fd1015;
+  }
+
+  #game_value_3 + label {
+    background-image: url("dice3.png");
+    background-size: cover;
+  }
+
+  #game_value_3:checked + label {
+    border-color: #fd1015;
+  }
+  #game_value_4 + label {
+    background-image: url("dice4.png");
+    background-size: cover;
+  }
+
+  #game_value_4:checked + label {
+    border-color: #fd1015;
+  }
+
+  #game_value_5 + label {
+    background-image: url("dice5.png");
+    background-size: cover;
+  }
+
+  #game_value_5:checked + label {
+    border-color: #fd1015;
+  }
+
+  #game_value_6 + label {
+    background-image: url("dice6.png");
+    background-size: cover;
+  }
+
+  #game_value_6:checked + label {
+    border-color: #fd1015;
+  }
+}

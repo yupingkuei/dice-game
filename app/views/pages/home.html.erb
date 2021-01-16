@@ -32,3 +32,10 @@
   <%= link_to "New", new_game_path %>
   <%= link_to "Delete", games_url(@game) %>
 <% end %>
+<div class="def-number-input number-input safari_only mb-0 w-100">
+  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                        class="minus decrease"></button>
+  <input class="quantity" min="0" name="quantity" value="1" type="number">
+  <div onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                        class="plus increase"></div>
+</div>

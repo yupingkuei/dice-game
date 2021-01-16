@@ -42,7 +42,7 @@ class GamesController < ApplicationController
   def destroy
     @game = Game.find(params[:id])
     @game.destroy
-    redirect_to games_path
+    redirect_to root_path
   end
 
   private
@@ -159,7 +159,7 @@ class GamesController < ApplicationController
       @game.save
     end
     render_game('queue')
-    redirect_to games_path
+    redirect_to root_path
   end
   # -----------------------------channel methods---------------------------
   def render_dice

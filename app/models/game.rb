@@ -4,6 +4,7 @@ class Game < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
   attr_accessor :total, :loser, :prev
 
+  DICES = [2, 3, 4, 5, 6]
   def calculate_total
     @total = { 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
     users.each do |user|

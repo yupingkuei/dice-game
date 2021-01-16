@@ -46,9 +46,9 @@ class GamesController < ApplicationController
 
   # ----------------------------raise bet method---------------------
   def raise_bet
-    if raised?(params[:game][:quantity], params[:value])
+    if raised?(params[:game][:quantity], params[:game][:value])
       @game.quantity = params[:game][:quantity]
-      @game.value = params[:value]
+      @game.value = params[:game][:value]
       next_turn
       refresh_dom
     end

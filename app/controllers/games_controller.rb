@@ -172,7 +172,7 @@ class GamesController < ApplicationController
   def render_waiting
     GameChannel.broadcast_to(
       @game,
-      render_to_string(partial: 'waiting', locals: { user: current_user })
+      render_to_string(partial: 'waiting', locals: { game: @game })
     )
   end
   def render_game(page)

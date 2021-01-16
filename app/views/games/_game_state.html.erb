@@ -46,9 +46,9 @@
       <% if @game.users.select { |user| user.dice.count > 0 }.count < 2 %>
         <%= render 'gameover', game: @game %>
       <% elsif @game.users[@game.turn].email == current_user.email %>
-        <%= render 'action', user: current_user %>
+        <%= render 'action', game: @game %>
       <% else %>
-        <%= render 'waiting', user: current_user %>
+        <%= render 'waiting', game: @game %>
       <% end %>
     </div>
     <%# --------------------mod actions----------------------------- %>
@@ -70,26 +70,25 @@
             <%#= f.submit "6", class: 'dice6 dice-img', name: "value"%>
             <%#= f.collection_radio_buttons :value, [[2, '2'],[3, '3'],[4, '4'],[5, '5'],[6, '6']], :first, :last, item_wrapper_tag: false, boolean_style: :inline, item_label_class: 'this'  do |dice| %>
               <%#= dice.label { image_tag("dice#{dice.text}.png") + dice.radio_button + dice.text } %>
-            <%# end %>
-            <%= f.input :value,
+              <%# end %>
+              <%= f.input :value,
             as: :radio_buttons,
             collection_wrapper_tag: 'div',
             collection_wrapper_class: 'category-wrapper',
             item_wrapper_class: 'category-item',
             input_html: {class: 'category-selector'},
             collection: Game::DICES %>
-            <%= f.submit "raise" %>
-          </div>
-        <% end %>
-      </div>
-      <div>
-        <%= simple_form_for(@game) do |f| %>
-          <%= f.hidden_field :action, value: 'call', remote: true %>
-          <%= f.submit "Call Bluff"%>
-        <% end %>
+              <%= f.submit "raise" %>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <%= simple_form_for(@game) do |f| %>
+            <%= f.hidden_field :action, value: 'call', remote: true %>
+            <%= f.submit "Call Bluff"%>
+          <% end %>
+        </div>
       </div>
     </div>
+    <%# ----------------------awaiting players---------------------------- %>
   </div>
-  <%# ----------------------awaiting players---------------------------- %>
-</div>
-

@@ -4,10 +4,8 @@
   <% @game.users.each do |user|%>
     <h3><%= user.name %></h3>
   <% end %>
-  <% if current_user == @game.owner %>
-    <%= simple_form_for(@game) do |f| %>
-      <%= f.hidden_field :action, value: 'start' %>
-      <%= f.submit "Start"%>
-    <% end %>
+  <%= simple_form_for(@game) do |f| %>
+    <%= f.hidden_field :action, value: 'start' %>
+    <%= f.submit "Start"%>
   <% end %>
 </div>

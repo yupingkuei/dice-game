@@ -4,28 +4,28 @@
       <div class="competitor">
         <% if  @game.users.second%>
           <div class="player 1">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 1)] %>
+            <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 1)] %>
           </div>
         <% end %>
       </div>
       <div class="competitor">
         <% if  @game.users.third%>
           <div class="player 2">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 2)] %>
+            <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 2)] %>
           </div>
         <% end %>
       </div>
       <div class="competitor">
         <% if  @game.users.fourth%>
           <div class="player 3">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 3)] %>
+            <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 3)] %>
           </div>
         <% end %>
       </div>
       <div class="competitor">
         <% if  @game.users.fifth%>
           <div class="player 4">
-            <%= render 'games/player_dice', user: @game.users[@game.users.index(current_user) - (@game.users.count - 4)] %>
+            <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 4)] %>
           </div>
         <% end %>
       </div>
@@ -45,7 +45,7 @@
     <div class="action" data-user="<%=current_user.email%>">
       <% if @game.users.select { |user| user.dice.count > 0 }.count < 2 %>
         <%= render 'gameover', game: @game %>
-      <% elsif @game.users[@game.turn].email == current_user.email %>
+      <% elsif @game.users.sort_by {|user| user.sessions[0].id }[@game.turn].email == current_user.email %>
         <%= render 'action', game: @game %>
       <% else %>
         <%= render 'waiting', game: @game %>

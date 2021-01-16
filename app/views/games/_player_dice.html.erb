@@ -1,5 +1,5 @@
 <div class="player-name">
-  <% if user.email == @game.users[@game.turn].email %>
+  <% if user.email == @game.users.sort_by {|user| user.sessions[0].id }[@game.turn].email %>
     <div class="turn-icon"><i class="fas fa-angle-double-right"></i></div>
   <% end %>
   <h1><%= user.name %></h1>

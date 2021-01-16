@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :users, through: :sessions
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
-  attr_accessor :total, :loser, :prev
+  attr_accessor :total, :loser, :prev, :order
 
   DICES = [2, 3, 4, 5, 6]
   def calculate_total
@@ -23,8 +23,8 @@ class Game < ApplicationRecord
   end
 
   def previous_player
-    if users[turn - @prev].dice.count > 0
-      loser = users[turn - @prev]
+    if users.sort_by { |user| user.sessions[0].id }[turn - @prev].dice.count > 0
+      loser = users.sort_by { |user| user.sessions[0].id }[turn - @prev]
     else
       @prev += 1
       previous_player
@@ -35,7 +35,7 @@ class Game < ApplicationRecord
   def calculate_loser
     calculate_total
     if total[value] >= quantity
-      @loser = users[turn]
+      @loser = users.sort_by { |user| user.sessions[0].id }[turn]
     else
       @prev = 1
       previous_player

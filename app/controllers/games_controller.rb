@@ -36,7 +36,7 @@ class GamesController < ApplicationController
     new_game if params[:game][:action] == 'reset'
     call_bluff if params[:game][:action] == 'call'
     raise_bet if params[:game][:action] == 'raise'
-    start_next if params[:game][:action] == 'next'
+    check_state if params[:game][:action] == 'next'
   end
 
   def destroy
@@ -47,7 +47,7 @@ class GamesController < ApplicationController
 
   private
 
-  # ----------------------------raise bet method---------------------
+  # =========================raise bet method=========================
   def raise_bet
     if raised?(params[:game][:quantity], params[:game][:value])
       @game.quantity = params[:game][:quantity]
@@ -57,18 +57,18 @@ class GamesController < ApplicationController
     end
   end
 
-  #----------------------------next turn method--------------------
+  #=========================next turn method=========================
   def next_turn
-    if @game.turn < (@game.users.count - 1)
-      @game.turn += 1
-    else
-      @game.turn = 0
+    @game.turn < (@game.users.count - 1) ? @game.turn += 1 : @game.turn = 0
+    if @game.users.sort_by { |user| user.sessions[0].id }[@game.turn].dice
+         .count < 1
+      next_turn
     end
-    next_turn if @game.users[@game.turn].dice.count < 1
+
     @game.save
   end
 
-  # ------------------------new round method-----------------------
+  # =========================new round method=========================
   def new_round
     @game.users.each do |user|
       user.dice = roll(user.dice.count)
@@ -79,7 +79,7 @@ class GamesController < ApplicationController
     @game.save
   end
 
-  # ------------------------new game method-----------------------
+  # =========================new game method=========================
   def new_game
     @game.users.each do |user|
       user.dice = roll(5)
@@ -91,20 +91,24 @@ class GamesController < ApplicationController
     refresh_dom
   end
 
-  # ------------------------call bluff method--------------------
+  # =========================call bluff method=========================
   def call_bluff
     @game.calculate_total
     @game.calculate_loser
     render_game('game_result')
     @game.loser.dice.pop
     @game.loser.save
-    @game.turn = @game.users.index(@game.loser)
+    @game.turn =
+      @game.users.sort_by { |user| user.sessions[0].id }.index(@game.loser)
     new_round
 
-    next_turn if @game.users[@game.turn].dice.count < 1
+    if @game.users.sort_by { |user| user.sessions[0].id }[@game.turn].dice
+         .count < 1
+      next_turn
+    end
   end
-
-  def start_next
+  # =========================check state=========================
+  def check_state
     if @game.users.select { |user| user.dice.count > 0 }.count < 2
       render_game('gameover')
     else
@@ -126,30 +130,23 @@ class GamesController < ApplicationController
       )
   end
 
-  def round_loss(user)
-    user.dice.pop
-    user.save
-  end
-
-  def current_turn_user
-    @game.users[@game.turn]
-  end
-
+  # =========================join game=========================
   def join_game
     unless @game.users.include?(current_user)
       Session.create(game: @game, user: current_user)
+      raise
       render_game('queue')
     end
     render :show
   end
-
+  # =========================start game=========================
   def start_game
     @game.start = true
     new_game
     @game.save
     GameChannel.broadcast_to(@game, 'start game')
   end
-
+  # ========================leave game========================
   def leave_game
     @session = @game.sessions.find_by(user: current_user)
     @session.destroy
@@ -161,7 +158,7 @@ class GamesController < ApplicationController
     render_game('queue')
     redirect_to root_path
   end
-  # -----------------------------channel methods---------------------------
+  # =========================channel methods=========================
   def render_dice
     @game.users.each do |user|
       GameChannel.broadcast_to(
@@ -170,24 +167,17 @@ class GamesController < ApplicationController
       )
     end
   end
-  def render_waiting
-    GameChannel.broadcast_to(
-      @game,
-      render_to_string(partial: 'waiting', locals: { game: @game })
-    )
-  end
   def render_game(page)
     GameChannel.broadcast_to(
       @game,
       render_to_string(partial: page, locals: { game: @game })
     )
   end
-
   def refresh_dom
     @game.save
     render_game('current_bet')
     render_dice
-    render_waiting
+    render_game('waiting')
     render_game('action')
   end
 end

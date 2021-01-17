@@ -8,6 +8,6 @@
   </div>
   <%= simple_form_for(@game) do |f| %>
     <%= f.hidden_field :action, value: 'leave' %>
-    <%= f.submit "leave" %>
+    <%= f.submit "leave", class: 'leave button' %>
   <% end %>
 <% end %>

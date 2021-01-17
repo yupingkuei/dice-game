@@ -6,6 +6,6 @@
 <% end %>
 <%= simple_form_for(@game) do |f| %>
   <%= f.hidden_field :action, value: 'next' %>
-  <%= f.submit "next"%>
+  <%= f.submit "next", class: "next button"%>
 <% end %>
 </div>

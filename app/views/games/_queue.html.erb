@@ -6,6 +6,6 @@
   <% end %>
   <%= simple_form_for(@game) do |f| %>
     <%= f.hidden_field :action, value: 'start' %>
-    <%= f.submit "Start"%>
+    <%= f.submit "Start", class: "start button"%>
   <% end %>
 </div>

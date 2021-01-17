@@ -17,13 +17,7 @@ class GamesController < ApplicationController
 
   def create
     @game =
-      Game.create(
-        owner: current_user,
-        turn: 0,
-        value: 2,
-        quantity: 0,
-        max: params[:game][:max].to_i
-      )
+      Game.create(owner: current_user, turn: 0, value: 2, quantity: 0, max: 5)
     Session.create(game: @game, user: current_user)
     redirect_to game_path(@game)
   end

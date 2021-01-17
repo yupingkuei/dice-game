@@ -2,11 +2,12 @@
 .form-container {
   display: flex;
   justify-content: space-around;
+  .was-validated .form-control:valid,
+  .form-control.is-valid {
+    padding: 20px 0 0 0;
+  }
 }
-.was-validated .form-control:valid,
-.form-control.is-valid {
-  padding: 20px 0 0 0;
-}
+
 .minus {
   background: url("/assets/down.png");
 }

@@ -1,11 +1,11 @@
 <div class="loser">
   <% @game.calculate_loser %>
-  <%= @game.loser.name %> loses </br>
-<% @game.total.each do |k, v| %>
-  <%= image_tag "dice#{k}.png" , width: 100, class: 'dice-img' %> x <%= v %>
-<% end %>
-<%= simple_form_for(@game) do |f| %>
-  <%= f.hidden_field :action, value: 'next' %>
-  <%= f.submit "next", class: "next button"%>
-<% end %>
+  <h5><%= @game.loser.name.capitalize %> lost!</h5>
+  <% @game.total.each do |k, v| %>
+    <%= image_tag "dice#{k}.png" , width: 100, class: 'dice-img' %> x <%= v %>
+  <% end %>
+  <%= simple_form_for(@game) do |f| %>
+    <%= f.hidden_field :action, value: 'next' %>
+    <%= f.submit "next", class: "btn-next btn-yellow"%>
+  <% end %>
 </div>

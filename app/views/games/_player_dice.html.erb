@@ -5,6 +5,8 @@
   <h1><%= user.name %></h1>
   <h2 class="email"><%= user.email %></h2>
 </div>
-<% user.dice.each do |die| %>
-  <%= image_tag "dice#{die}.png" , width: 60, class: 'dice-img' %>
-<% end %>
+<div>
+  <% user.dice.each do |die| %>
+    <%= image_tag "dice#{die}.png" , width: 60, class: 'dice-img' %>
+  <% end %>
+</div>

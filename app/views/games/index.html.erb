@@ -8,7 +8,10 @@
         <div class="game-card-info">
           <div class="game-card-players">
             <% game.users.each do |user| %>
-              <%= user.name %>
+              <div class="game-card-player">
+                <%= user.name %>
+                <%= cl_image_tag user.photo.key, class: "user-photo" %>
+              </div>
             <% end %>
           </div>
           <div class="game-card-join">

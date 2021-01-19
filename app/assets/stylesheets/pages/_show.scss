@@ -106,7 +106,7 @@
 }
 .current-user {
   h1 {
-    color: white;
+    color: black;
   }
 }
 
@@ -158,6 +158,10 @@
   border-radius: 50%;
   border: solid 1vw $yellow;
   padding: 1.2vw;
+}
+#user-info {
+  width: 100vw;
+  margin-top: -80px;
 }
 .circle-content {
   border-radius: 50%;

@@ -39,13 +39,13 @@
               <% end %>
             </div>
           </div>
-          <%# current user %>
-          <div class="current-user competitor" id="user-info">
-            <div class="player 0">
-              <%= render 'games/player_dice', user: current_user %>
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
+    <%# current user %>
+    <div class="current-user competitor" id="user-info">
+      <div class="player 0">
+        <%= render 'games/player_dice', user: current_user %>
       </div>
     </div>
     <%#----------------------------action----------------------------%>

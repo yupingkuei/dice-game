@@ -2,10 +2,11 @@
   <% if user.email == @game.users.sort_by {|user| user.sessions[0].id }[@game.turn].email %>
     <div class="turn-icon"><i class="fas fa-angle-double-right"></i></div>
   <% end %>
-  <h1><%= user.name %></h1>
+  <h1 class="name"><%= user.name %></h1>
   <h2 class="email"><%= user.email %></h2>
 </div>
-<div>
+<%= cl_image_tag user.photo.key, width: 60, class: "player-img"%>
+<div class="player-dice">
   <% user.dice.each do |die| %>
     <%= image_tag "dice#{die}-w.png" , width: 60, class: 'dice-img' %>
   <% end %>

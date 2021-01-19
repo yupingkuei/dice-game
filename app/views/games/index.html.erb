@@ -15,18 +15,18 @@
             <% end %>
           </div>
           <div class="game-card-join">
-            <p><%= game.max - game.users.count %> more</br>players</p>
-          <% if game.users.count < game.max || game.users.include?(current_user) %>
-            <%= simple_form_for(game) do |f| %>
-              <%= f.hidden_field :action, value: 'join' %>
-              <%= f.submit "join", class: 'btn-home btn-yellow'%>
+            <p><%= game.max - game.users.count %> more players</p>
+            <% if game.users.count < game.max || game.users.include?(current_user) %>
+              <%= simple_form_for(game) do |f| %>
+                <%= f.hidden_field :action, value: 'join' %>
+                <%= f.submit "join", class: 'btn-home btn-yellow'%>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 </div>
 <%#-------------------create-------------------------%>
 <div class="cards-border border-red">

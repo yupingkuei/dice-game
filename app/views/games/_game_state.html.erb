@@ -11,13 +11,6 @@
           <%# players %>
           <div class="competitors hide">
             <div class="competitor">
-              <% if  @game.users.second%>
-                <div class="player 1">
-                  <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 1)] %>
-                </div>
-              <% end %>
-            </div>
-            <div class="competitor">
               <% if  @game.users.third%>
                 <div class="player 2">
                   <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 2)] %>
@@ -28,6 +21,13 @@
               <% if  @game.users.fourth%>
                 <div class="player 3">
                   <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 3)] %>
+                </div>
+              <% end %>
+            </div>
+            <div class="competitor">
+              <% if  @game.users.second%>
+                <div class="player 1">
+                  <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 1)] %>
                 </div>
               <% end %>
             </div>

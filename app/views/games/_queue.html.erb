@@ -1,11 +1,10 @@
 <div class="queue">
-  <i class="fas fa-spinner fa-spin"></i>
-  awaiting players
+  <p><i class="fas fa-spinner fa-spin"></i> awaiting players</p>
   <% @game.users.each do |user|%>
     <h3><%= user.name %></h3>
   <% end %>
   <%= simple_form_for(@game) do |f| %>
     <%= f.hidden_field :action, value: 'start' %>
-    <%= f.submit "Start", class: "start button"%>
+    <%= f.submit "Start", class: "btn-home btn-yellow my-2"%>
   <% end %>
 </div>

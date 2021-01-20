@@ -1,4 +1,4 @@
-<h1>Liar's Dice</h1>
+<%= image_tag "banner.png", style: "width:100%;" %>
 <% if current_user %>
   <% if current_user.sessions.any? %>
     <%= link_to "Current Game", game_url(current_user.sessions.first.game) %>
@@ -6,33 +6,44 @@
   <% else %>
     <% @games = Game.all %>
     <% @new_game = Game.new %>
-    <p>Join an exsiting game or create a new game</p>
-    <% @games.each do |game| %>
-      <div class="game-card">
-        <h2>Room <%= game.id %></h2>
-        <% game.users.each do |user| %>
-          <%= user.name %>
-        <% end %>
-        <p><%= game.max - game.users.count %> more players</p>
-        <% if game.users.count < game.max || game.users.include?(current_user) %>
-          <%= simple_form_for(game) do |f| %>
-            <%= f.hidden_field :action, value: 'join' %>
-            <%= f.submit "join", class: 'join-room button'%>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="home">
+      <h2>Liar's Dice. Let's Dice!</h2>
+      <% @games.each do |game| %>
+        <div class="cards-border border-yellow">
+          <div class="game-card">
+            <h3>game <%= game.id %></h3>
+            <div class="game-card-info">
+              <div class="game-card-players">
+                <% game.users.each do |user| %>
+                  <div class="game-card-player">
+                    <%= user.name %>
+                    <%= cl_image_tag user.photo.key, class: "user-photo" %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="game-card-join">
+                <div class="player-count">
+                  <p><%= game.max - game.users.count %> more players</p>
+                </div>
+                <% if game.users.count < game.max || game.users.include?(current_user) %>
+                  <%= simple_form_for(game) do |f| %>
+                    <%= f.hidden_field :action, value: 'join' %>
+                    <%= f.submit "join", class: 'btn-home btn-yellow'%>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <%#-------------------create-------------------------%>
-    <div class="new_game ">
+    <div>
       <%= simple_form_for(@new_game) do |f| %>
-        <%# <%= f.input :max, label: 'number of players' %>
-        <%= f.submit "New", class: 'new-room button'%>
+        <div class="new-game-form">
+          <%= f.submit "New Game", class: 'btn-new-game btn-red btn-bottom'%>
+        </div>
       <% end %>
     </div>
   <% end %>
 <% end %>
-<%= cl_image_tag User.first.photo.key%>
-<%= cl_image_tag User.second.photo.key%>
-<%= cl_image_tag User.third.photo.key%>
-<%= cl_image_tag User.fourth.photo.key%>
-<%= cl_image_tag User.fifth.photo.key%>

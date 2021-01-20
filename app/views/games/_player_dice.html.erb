@@ -5,7 +5,11 @@
   <h1 class="name"><%= user.name %></h1>
   <h2 class="email"><%= user.email %></h2>
 </div>
-<%= cl_image_tag user.photo.key, width: 70, class: "player-img"%>
+<% if user.photo.attached? %>
+  <%= cl_image_tag user.photo.key, width: 70, class: "player-img"%>
+<% else %>
+  <%= image_tag "default.png", width: 70, class: "player-img" %>
+<% end %>
 <div class="player-dice">
   <% user.dice.each do |die| %>
     <%= image_tag "dice#{die}-w.png" , width: 60, class: 'dice-img' %>

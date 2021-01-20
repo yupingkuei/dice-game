@@ -5,7 +5,7 @@
   <% if user_signed_in? %>
     <div class="nav-items">
       <% if current_user.sessions.any? %>
-        <%= simple_form_for(@game) do |f| %>
+        <%= simple_form_for(current_user.sessions.first.game) do |f| %>
           <%= f.hidden_field :action, value: 'leave' %>
           <%= f.submit "quit" %>
         <% end %>
@@ -13,7 +13,11 @@
       <%= link_to destroy_user_session_path, method: :delete, class: "nav-item" do %>
         <i class="fas fa-sign-out-alt"></i>
       <% end %>
-      <%= cl_image_tag current_user.photo.key , class: "avatar user-border" %>
+      <% if current_user.photo.attached? %>
+        <%= cl_image_tag current_user.photo.key , class: "avatar user-border" %>
+      <% else %>
+        <%= image_tag "default.png", class: "avatar user-border" %>
+      <% end %>
     </div>
   <% else %>
     <%= link_to "Login", new_user_session_path, class: "login"%>

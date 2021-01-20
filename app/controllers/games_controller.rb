@@ -145,11 +145,11 @@ class GamesController < ApplicationController
   def leave_game
     @session = @game.sessions.find_by(user: current_user)
     @session.destroy
-    @game.destroy if @game.sessions.count < 1
     if @game.start
       @game.start = false
       @game.save
     end
+    @game.destroy if @game.sessions.count < 1
     render_game('queue')
     redirect_to root_path
   end

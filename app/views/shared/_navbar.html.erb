@@ -4,6 +4,12 @@
   <% end %>
   <% if user_signed_in? %>
     <div class="nav-items">
+      <% if current_user.sessions.any? %>
+        <%= simple_form_for(@game) do |f| %>
+          <%= f.hidden_field :action, value: 'leave' %>
+          <%= f.submit "quit" %>
+        <% end %>
+      <% end %>
       <%= link_to destroy_user_session_path, method: :delete, class: "nav-item" do %>
         <i class="fas fa-sign-out-alt"></i>
       <% end %>

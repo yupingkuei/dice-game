@@ -12,28 +12,28 @@
           <div class="competitors hide">
             <div class="competitor">
               <% if  @game.users.third%>
-                <div class="player 2">
+                <div class="player top-left">
                   <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 2)] %>
                 </div>
               <% end %>
             </div>
             <div class="competitor">
               <% if  @game.users.fourth%>
-                <div class="player 3">
+                <div class="player top-right">
                   <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 3)] %>
                 </div>
               <% end %>
             </div>
             <div class="competitor">
               <% if  @game.users.second%>
-                <div class="player 1">
+                <div class="player bottom-left">
                   <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 1)] %>
                 </div>
               <% end %>
             </div>
             <div class="competitor">
               <% if  @game.users.fifth%>
-                <div class="player 4">
+                <div class="player bottom-right">
                   <%= render 'games/player_dice', user: @game.users.sort_by {|user| user.sessions[0].id }[@game.users.sort_by {|user| user.sessions[0].id }.index(current_user) - (@game.users.count - 4)] %>
                 </div>
               <% end %>
@@ -43,7 +43,7 @@
       </div>
     </div>
     <%# current user %>
-    <div class="current-user competitor">
+    <div class="current-user competitor" id="user-info">
       <div class="player 0">
         <%= render 'games/player_dice', user: current_user %>
       </div>
@@ -62,25 +62,26 @@
       </div>
     </div>
     <%# --------------------mod actions----------------------------- %>
-    <h2>Reset the game</h2>
-    <%= simple_form_for(@game) do |f| %>
-      <%= f.hidden_field :action, value: 'reset' %>
-      <%= f.submit "Reset"%>
-    <% end %>
-    <div class="action">
-      <div class="form-container">
-        <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
-          <div class="bet-input">
-            <div class="bet-quantity">
-              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();return false;"
+    <% if false %>
+      <h2>Reset the game</h2>
+      <%= simple_form_for(@game) do |f| %>
+        <%= f.hidden_field :action, value: 'reset' %>
+        <%= f.submit "Reset"%>
+      <% end %>
+      <div class="action">
+        <div class="form-container">
+          <%= simple_form_for @game, remote: true, html: { class: 'bet-form' } do |f| %>
+            <div class="bet-input">
+              <div class="bet-quantity">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();return false;"
                         class="plus" ></button>
-              <%= f.input :quantity, input_html: { class: 'bet-quantity-value' }, label: false %>
-              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown();return false;"
+                <%= f.input :quantity, input_html: { class: 'bet-quantity-value' }, label: false %>
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown();return false;"
                         class="minus"></button>
-            </div>
-            <h2>x</h2>
-            <div class="bet-value">
-              <button onclick="
+              </div>
+              <h2>x</h2>
+              <div class="bet-value">
+                <button onclick="
       if (this.parentNode.querySelector('input[type=number]').value < 6) {
       this.parentNode.querySelector('input[type=number]').stepUp()};
       
@@ -88,28 +89,29 @@
       
       return false;"
       class="plus"></button>
-              <%= f.input :value, default: 2, input_html: { class: 'value-input' , value: "#{@game.value}"}, label: false %>
-              <div class="bet-image dice<%=@game.value%>"></div>
-              <button onclick="
+                <%= f.input :value, default: 2, input_html: { class: 'value-input' , value: "#{@game.value}"}, label: false %>
+                <div class="bet-image dice<%=@game.value%>"></div>
+                <button onclick="
       if (this.parentNode.querySelector('input[type=number]').value > 2) {
-                this.parentNode.querySelector('input[type=number]').stepDown()};
-                this.parentNode.querySelector('.bet-image').className = `bet-image dice${this.parentNode.querySelector('input[type=number]').value}`
-                ;return false;"
-                class="minus"></button>
+                  this.parentNode.querySelector('input[type=number]').stepDown()};
+                  this.parentNode.querySelector('.bet-image').className = `bet-image dice${this.parentNode.querySelector('input[type=number]').value}`
+                  ;return false;"
+                  class="minus"></button>
+              </div>
             </div>
-          </div>
-          <div class="submit">
-            <%= f.hidden_field :action, value: 'raise', remote: true %>
-            <%= f.submit "raise" %>
-          <% end %>
-          <div class="bluff">
-            <%= simple_form_for(@game) do |f| %>
-              <%= f.hidden_field :action, value: 'call', remote: true %>
-              <%= f.submit "Call Bluff"%>
+            <div class="submit">
+              <%= f.hidden_field :action, value: 'raise', remote: true %>
+              <%= f.submit "raise" %>
             <% end %>
+            <div class="bluff">
+              <%= simple_form_for(@game) do |f| %>
+                <%= f.hidden_field :action, value: 'call', remote: true %>
+                <%= f.submit "Call Bluff"%>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
     <%# ----------------------awaiting players---------------------------- %>
   </div>

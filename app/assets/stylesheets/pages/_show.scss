@@ -26,6 +26,7 @@
 }
 // action
 .action {
+  height: 160px;
   padding: 8px;
   background-color: white;
   border-radius: 4px;
@@ -41,7 +42,7 @@
   }
 }
 .action-box {
-  margin: 8px;
+  margin: 52px 8px 8px 8px;
   background-color: black;
   border-radius: 8px;
   padding: 8px;
@@ -70,6 +71,7 @@
 .competitors {
   position: absolute;
   display: grid;
+
   grid-template-columns: 1fr 1fr;
   gap: 20vw 8vw;
   .dice-img {
@@ -78,7 +80,10 @@
   }
   z-index: 2;
 }
+
 .competitor {
+  height: 45vw;
+  width: 46vw;
   padding: 8px 8px 16px 8px;
   border-radius: 4px;
 }
@@ -102,7 +107,7 @@
 }
 .current-user {
   h1 {
-    color: white;
+    color: black;
   }
 }
 
@@ -115,8 +120,10 @@
 }
 
 .hide {
-  img {
-    content: url("/assets/dice7.png");
+  .player-dice {
+    img {
+      content: url("/assets/dice7.png");
+    }
   }
 }
 // back
@@ -153,6 +160,22 @@
   border: solid 1vw $yellow;
   padding: 1.2vw;
 }
+
+#user-info {
+  width: 100vw;
+  margin-top: -80px;
+  margin-bottom: 20px;
+  .player-img {
+    margin-bottom: 8px;
+  }
+}
+
+.player-img {
+  border-radius: 50%;
+  background-color: black;
+  padding: 4px;
+  border: 3px solid $yellow;
+}
 .circle-content {
   border-radius: 50%;
   background-color: white;
@@ -162,4 +185,78 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  // position: relative;
+
+  .top-left {
+    position: relative;
+    .player-name {
+      position: absolute;
+      top: 18vw;
+      left: 30px;
+    }
+    .player-img {
+      position: absolute;
+      top: 0;
+      left: 20px;
+    }
+    .player-dice {
+      position: absolute;
+      top: 120px;
+      left: 0;
+    }
+  }
+  .top-right {
+    position: relative;
+    .player-name {
+      position: absolute;
+      top: 18vw;
+      right: 30px;
+    }
+    .player-img {
+      position: absolute;
+      top: 0;
+      right: 20px;
+    }
+    .player-dice {
+      position: absolute;
+      top: 120px;
+      right: 0;
+    }
+  }
+  .bottom-left {
+    position: relative;
+    .player-name {
+      position: absolute;
+      top: 10vw;
+      left: 30px;
+    }
+    .player-img {
+      position: absolute;
+      top: 25vw;
+      left: 20px;
+    }
+    .player-dice {
+      position: absolute;
+      top: 1vw;
+      left: 0;
+    }
+  }
+  .bottom-right {
+    position: relative;
+    .player-name {
+      position: absolute;
+      top: 10vw;
+      right: 30px;
+    }
+    .player-img {
+      position: absolute;
+      top: 25vw;
+      right: 20px;
+    }
+    .player-dice {
+      position: absolute;
+      top: 1vw;
+      right: 0;
+    }
+  }
 }

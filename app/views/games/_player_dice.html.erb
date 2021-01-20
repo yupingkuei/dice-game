@@ -5,7 +5,7 @@
   <h1 class="name"><%= user.name %></h1>
   <h2 class="email"><%= user.email %></h2>
 </div>
-<%= cl_image_tag user.photo.key, width: 60, class: "player-img"%>
+<%= cl_image_tag user.photo.key, width: 70, class: "player-img"%>
 <div class="player-dice">
   <% user.dice.each do |die| %>
     <%= image_tag "dice#{die}-w.png" , width: 60, class: 'dice-img' %>

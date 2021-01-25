@@ -19,7 +19,7 @@
             <% if game.users.count < game.max || game.users.include?(current_user) %>
               <%= simple_form_for(game) do |f| %>
                 <%= f.hidden_field :action, value: 'join' %>
-                <%= f.submit "join", class: 'btn-home btn-yellow'%>
+                <%= f.submit "Join", class: 'btn-dice btn-home btn-yellow'%>
               <% end %>
             <% end %>
           </div>
@@ -35,7 +35,7 @@
     <%= simple_form_for(@new_game) do |f| %>
       <div class="new-game-form">
         <%= f.input :max, label: 'number of players' %>
-        <%= f.submit "New", class: 'btn-home btn-red btn-bottom'%>
+        <%= f.submit "New", class: 'btn-dice btn-home btn-red'%>
       </div>
     <% end %>
   </div>

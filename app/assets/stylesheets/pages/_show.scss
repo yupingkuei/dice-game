@@ -42,7 +42,7 @@
   }
 }
 .action-box {
-  margin: 52px 8px 8px 8px;
+  margin: 40px 8px 8px 8px;
   background-color: black;
   border-radius: 8px;
   padding: 8px;
@@ -71,14 +71,12 @@
 .competitors {
   position: absolute;
   display: grid;
-
   grid-template-columns: 1fr 1fr;
-  gap: 20vw 8vw;
+  gap: 20vw 4vw;
   .dice-img {
     height: 28px;
     width: 28px;
   }
-  z-index: 2;
 }
 
 .competitor {
@@ -106,13 +104,19 @@
   padding: 1.2vw;
 }
 .current-user {
-  h1 {
+  h2 {
     color: black;
+  }
+  .player-name {
+    margin-bottom: 8px;
   }
 }
 
 .player-name {
   h2 {
+    margin: 0;
+  }
+  h3 {
     display: none;
   }
   display: flex;
@@ -166,7 +170,7 @@
   margin-top: -80px;
   margin-bottom: 20px;
   .player-img {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 }
 
@@ -191,7 +195,7 @@
     position: relative;
     .player-name {
       position: absolute;
-      top: 18vw;
+      top: 19vw;
       left: 30px;
     }
     .player-img {
@@ -209,7 +213,7 @@
     position: relative;
     .player-name {
       position: absolute;
-      top: 18vw;
+      top: 19vw;
       right: 30px;
     }
     .player-img {
@@ -227,7 +231,7 @@
     position: relative;
     .player-name {
       position: absolute;
-      top: 10vw;
+      top: 11vw;
       left: 30px;
     }
     .player-img {
@@ -245,7 +249,7 @@
     position: relative;
     .player-name {
       position: absolute;
-      top: 10vw;
+      top: 11vw;
       right: 30px;
     }
     .player-img {

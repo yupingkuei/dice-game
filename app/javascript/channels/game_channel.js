@@ -49,14 +49,14 @@ const initGameCable = () => {
                   //checks if player email matches incoming post email
                   player.querySelector(".email").innerText ===
                   data
-                    .match(/<h2 class="email">.*<\/h2>/g)[0]
+                    .match(/<h3 class="email">.*<\/h3>/g)[0]
                     .replace(/<\/?[^>]+(>|$)/g, "")
                 ) {
                   player.innerHTML = data;
                   if (data.split(" ")[6] === `class="turn-icon"><i`) {
                     // assigns current turn
                     current = data
-                      .match(/<h2 class="email">.*<\/h2>/g)[0]
+                      .match(/<h3 class="email">.*<\/h3>/g)[0]
                       .replace(/<\/?[^>]+(>|$)/g, "");
                   }
                 }

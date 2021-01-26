@@ -7,12 +7,10 @@
       <% if current_user.sessions.any? %>
         <%= simple_form_for(current_user.sessions.first.game) do |f| %>
           <%= f.hidden_field :action, value: 'leave' %>
-          <%= f.submit "quit" %>
+          <%= f.submit "Quit", class: "nav-btn btn-red" %>
         <% end %>
       <% end %>
-      <%= link_to destroy_user_session_path, method: :delete, class: "nav-item" do %>
-        <i class="fas fa-sign-out-alt"></i>
-      <% end %>
+      <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-btn btn-yellow" %>
       <% if current_user.photo.attached? %>
         <%= cl_image_tag current_user.photo.key , class: "avatar user-border" %>
       <% else %>

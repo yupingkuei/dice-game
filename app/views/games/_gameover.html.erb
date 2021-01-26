@@ -2,6 +2,6 @@
   <h2><%= @game.users.select { |user| user.dice.count > 0}[0].name %> is the winner!</h2>
   <%= simple_form_for(@game) do |f| %>
     <%= f.hidden_field :action, value: 'reset' %>
-    <%= f.submit "Start New Game", class: "btn-restart btn-yellow"%>
+    <%= f.submit "Start New Game", class: "btn-dice btn-restart btn-yellow"%>
   <% end %>
 </div>

@@ -32,12 +32,12 @@
     </div>
     <div class="submit">
       <%= f.hidden_field :action, value: 'raise', remote: true %>
-      <%= f.submit "raise", class: "btn-form btn-yellow"%>
+      <%= f.submit "raise", class: "btn-dice btn-form btn-yellow"%>
     <% end %>
     <div class="bluff">
       <%= simple_form_for(@game) do |f| %>
         <%= f.hidden_field :action, value: 'call', remote: true %>
-        <%= f.submit "Call Bluff", class: 'btn-form btn-red'%>
+        <%= f.submit "Call Bluff", class: 'btn-dice btn-form btn-red'%>
       <% end %>
     </div>
   </div>

@@ -20,9 +20,12 @@
 .nav-items {
   display: flex;
   align-items: center;
+  a {
+    text-decoration: none;
+  }
 }
 .nav-item {
-  color: white !important;
+  color: white;
   margin: 0;
   padding: 0 8px;
   background-color: black;

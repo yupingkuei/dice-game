@@ -10,9 +10,7 @@
           <%= f.submit "Quit", class: "nav-btn btn-red" %>
         <% end %>
       <% end %>
-      <%= link_to destroy_user_session_path, method: :delete, class: "nav-btn btn-yellow" do %>
-        <p>Log Out</p>
-      <% end %>
+      <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-btn btn-yellow" %>
       <% if current_user.photo.attached? %>
         <%= cl_image_tag current_user.photo.key , class: "avatar user-border" %>
       <% else %>

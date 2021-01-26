@@ -1,8 +1,18 @@
 // Specific CSS for your home-page
 .home {
   h2,
-  h4 {
+  h5 {
     color: white;
+  }
+  a {
+    display: inline-block;
+    color: black;
+    text-shadow: rgba(30, 30, 30, 0.2);
+    background-color: $yellow;
+    margin: 8px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    text-decoration: none;
   }
 }
 
@@ -69,6 +79,7 @@
   }
   &-yellow {
     background-color: $yellow;
+    color: black;
   }
   &-red {
     background-color: $red;

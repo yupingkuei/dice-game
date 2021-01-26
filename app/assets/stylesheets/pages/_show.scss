@@ -123,6 +123,11 @@
   display: flex;
   justify-content: center;
 }
+.turn-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
 
 .hide {
   .player-dice {

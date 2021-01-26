@@ -1,13 +1,13 @@
-<%= image_tag "banner.png", style: "width:100%;" %>
-<% if current_user %>
-  <% if current_user.sessions.any? %>
-    <%= link_to "Current Game", game_url(current_user.sessions.first.game) %>
-    <% controller.redirect_to game_path(current_user.sessions.first.game) %>
-  <% else %>
-    <% @games = Game.all %>
-    <% @new_game = Game.new %>
-    <div class="home">
-      <h2>Liar's Dice. Let's Dice!</h2>
+<div class="home">
+  <%= image_tag "banner.png", style: "width:100%;" %>
+  <h2>Liar's Dice. Let's Dice!</h2>
+  <% if current_user %>
+    <% if current_user.sessions.any? %>
+      <%= link_to "Current Game", game_url(current_user.sessions.first.game) %>
+      <% controller.redirect_to game_path(current_user.sessions.first.game) %>
+    <% else %>
+      <% @games = Game.all %>
+      <% @new_game = Game.new %>
       <% @games.each do |game| %>
         <div class="cards-border border-yellow">
           <div class="game-card">
@@ -36,14 +36,17 @@
           </div>
         </div>
       <% end %>
-    </div>
-    <%#-------------------create-------------------------%>
-    <div>
-      <%= simple_form_for(@new_game) do |f| %>
-        <div class="new-game-form">
-          <%= f.submit "New Game", class: 'btn-dice btn-new-game btn-red btn-bottom'%>
-        </div>
-      <% end %>
-    </div>
+      <%#-------------------create-------------------------%>
+      <div>
+        <%= simple_form_for(@new_game) do |f| %>
+          <div class="new-game-form">
+            <%= f.submit "New Game", class: 'btn-dice btn-new-game btn-red btn-bottom'%>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <h5>Log in to start the game...</h5>
+    <%= link_to "Login", new_user_session_path, class: "login"%>
   <% end %>
-<% end %>
+</div>
